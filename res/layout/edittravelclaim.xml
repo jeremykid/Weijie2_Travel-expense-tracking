@@ -90,7 +90,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:text="Edit" />
 
@@ -105,5 +104,14 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:text="original description" />
+
+    <Button
+        android:id="@+id/edittritems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/editbutton"
+        android:text="expense items" />
 
 </RelativeLayout>
