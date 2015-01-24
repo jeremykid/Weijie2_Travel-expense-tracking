@@ -29,10 +29,24 @@ public class ClaimList {
 		claimList.remove(testClaim);
 	}
 
-	public Claim chooseClaim() {
-		// TODO Auto-generated method stub
+	public Claim chooseClaim() throws EmptyClaimListException{
+		int size =claimList.size();
+		if (size <= 0){
+			throw new EmptyClaimListException();
+			
+		}
 		int index = (int) (claimList.size() * Math.random());
 		return claimList.get(index);
+	}
+
+	public int size() {
+		// TODO Auto-generated method stub
+		return claimList.size();
+	}
+
+	public boolean contains(Claim testClaim) {
+		
+		return claimList.contains(testClaim);
 	}
 
 }
