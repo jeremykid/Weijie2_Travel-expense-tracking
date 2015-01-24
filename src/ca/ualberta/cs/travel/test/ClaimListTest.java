@@ -39,4 +39,32 @@ public class ClaimListTest extends TestCase {
 		assertTrue("Claim List Size Isn't Big Enough", claims.size() == 0);
 		assertFalse("Test Claim still contained",claims.contains(testClaim));
 	}
+
+	public void testChooseClaim(){
+		ClaimList claimList = new ClaimList();
+		String claimName = "A Claim";
+		Claim testClaim = new Claim(claimName);
+		claimList.addClaim(testClaim);
+		// testing for 1 student
+		for (int i = 0; i < 10; i++){
+			Claim claim = claimList.chooseClaim();
+			assertTrue("Claim is not null", claim != null);
+			assertTrue("Didn't choose the right claim",claim.equals(testClaim));
+		}
+		String claimNameB = "Another Claim";
+		Claim testClaimB = new Claim(claimNameB);
+		claimList.addClaim(testClaimB);
+		Claim [] claimArray = {testClaim,testClaimB};
+		for (int i = 0; i<claimArray.length;i++){
+			Claim targetclaim = claimArray[i];
+			int maxcount = 1000;
+			while(maxcount >0 && !targetclaim.equals(claimList.chooseClaim())){
+				// do nothing
+				maxcount --;
+			}
+			assertTrue("Too Many iterations", maxcount > 0);
+		}
+		
+	}
+		
 }
