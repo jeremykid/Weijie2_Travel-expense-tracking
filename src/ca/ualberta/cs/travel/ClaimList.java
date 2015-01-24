@@ -29,4 +29,10 @@ public class ClaimList {
 		claimList.remove(testClaim);
 	}
 
+	public Claim chooseClaim() {
+		// TODO Auto-generated method stub
+		int index = (int) (claimList.size() * Math.random());
+		return claimList.get(index);
+	}
+
 }
