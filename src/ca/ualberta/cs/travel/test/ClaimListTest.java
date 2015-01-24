@@ -4,18 +4,30 @@ import java.util.Collection;
 
 import ca.ualberta.cs.travel.Claim;
 import ca.ualberta.cs.travel.ClaimList;
+import ca.ualberta.cs.travel.EmptyClaimListException;
 
 import junit.framework.TestCase;
 
 public class ClaimListTest extends TestCase {
-	public void testClaimList(){
+	public void testEmptyClaimList(){
 		ClaimList claimList = new ClaimList();
-		Collection<Claim> claims = claimList.getClaims();
-		assertTrue("Empty Claim List", claims.size() == 0);
+		//Collection<Claim> claims = claimList.getClaims();
+		assertTrue("Empty Claim List", claimList.size() == 0);
 		
 	}
 	
 	public void testAddClaimList(){
+		ClaimList claimList = new ClaimList();
+		String claimName = "A Claim";
+		Claim testClaim = new Claim(claimName);
+		claimList.addClaim(testClaim);
+		Collection<Claim> claims = claimList.getClaims();		
+		assertTrue("Claim List Size", claimList.size() == 1);
+		assertTrue("Test Claim Not Contained",claimList.contains(testClaim));
+		
+	}
+	
+	public void testGetClaimList(){
 		ClaimList claimList = new ClaimList();
 		String claimName = "A Claim";
 		Claim testClaim = new Claim(claimName);
@@ -31,16 +43,17 @@ public class ClaimListTest extends TestCase {
 		String claimName = "A Claim";
 		Claim testClaim = new Claim(claimName);
 		claimList.addClaim(testClaim);
-		Collection<Claim> claims = claimList.getClaims();		
-		assertTrue("Claim List Size Isn't Big Enough", claims.size() == 1);
-		assertTrue("",claims.contains(testClaim));
+				
+		assertTrue("Claim List Size Isn't Big Enough", claimList.size() == 1);
+		assertTrue("",claimList.contains(testClaim));
 		claimList.removeClaim(testClaim);
-		claims = claimList.getClaims();		
-		assertTrue("Claim List Size Isn't Big Enough", claims.size() == 0);
-		assertFalse("Test Claim still contained",claims.contains(testClaim));
+
+		assertTrue("Claim List Size Isn't Big Enough", claimList.size() == 0);
+		assertFalse("Test Claim still contained",claimList.contains(testClaim));
 	}
 
-	public void testChooseClaim(){
+	public void testChooseClaimList(){
+		try{
 		ClaimList claimList = new ClaimList();
 		String claimName = "A Claim";
 		Claim testClaim = new Claim(claimName);
@@ -64,7 +77,21 @@ public class ClaimListTest extends TestCase {
 			}
 			assertTrue("Too Many iterations", maxcount > 0);
 		}
+		}catch (EmptyClaimListException e){
+			assertTrue("EmptyStudentListException was thrown"+e,false);
+		}
 		
 	}
-		
+
+	public void testChooseEmptyClaimList(){
+		ClaimList claimList = new ClaimList();
+		try{
+			Claim s = claimList.chooseClaim();
+			assertFalse("we should reach here", s==null);
+			assertTrue("we should reach here",false);
+		}catch (EmptyClaimListException e){
+			assertTrue("we should reach here",true);
+			
+		}
+	}
 }
