@@ -9,38 +9,22 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/deletetc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/editatravelclaim"
-        android:layout_toRightOf="@+id/editatravelclaim"
-        android:text="Delete" />
-
-    <Button
         android:id="@+id/addtravelclaims"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editatravelclaim"
-        android:layout_alignBottom="@+id/editatravelclaim"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/editatravelclaim"
+        android:layout_alignParentRight="true"
+        android:onClick="goToAddClaimAction"
         android:text="Add" />
 
-    <Button
-        android:id="@+id/editatravelclaim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="       Edit       " />
-
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/claimListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/deletetc"
-        android:layout_alignLeft="@+id/addtravelclaims"
+        android:layout_above="@+id/addtravelclaims"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true" >
 
     </ListView>

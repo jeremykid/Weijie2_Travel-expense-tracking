@@ -15,7 +15,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/edittravelclaimname"
+        android:id="@+id/addtravelclaimname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/edittravelclaimname"
+        android:layout_below="@+id/addtravelclaimname"
         android:text="Data Range"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

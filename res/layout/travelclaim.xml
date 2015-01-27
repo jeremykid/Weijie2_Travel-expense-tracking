@@ -1,40 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/edittravelclaim"
-        android:layout_toRightOf="@+id/datafrom"
-        android:ems="10"
-        android:inputType="date" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/datato"
-        android:ems="10"
-        android:inputType="date" />
-
-    <TextView
-        android:id="@+id/textdescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText3"
-        android:layout_marginTop="23dp"
-        android:text="Text Description"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+    android:layout_height="match_parent"
+    android:onClick="expenseItemsAction" >
 
     <EditText
         android:id="@+id/enterdescription"
@@ -53,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/edittravelclaimname"
+        android:layout_below="@+id/addtravelclaimname"
         android:text="Data Range"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -63,38 +31,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/edittravelclaimname"
+        android:layout_alignRight="@+id/addtravelclaimname"
         android:text="Add Travel Claim"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/datato"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText2"
-        android:layout_marginTop="17dp"
-        android:text="To"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/datafrom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/datato"
-        android:layout_alignParentLeft="true"
-        android:text="From"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <EditText
-        android:id="@+id/edittravelclaimname"
+        android:id="@+id/addtravelclaimname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/addtravelclaim"
         android:layout_marginTop="15dp"
         android:ems="10"
-        android:text="add travel name here" android:inputType=""/>
+        android:inputType="" />
 
     <Button
         android:id="@+id/addtc"
@@ -103,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:onClick="addClaimAction"
         android:text="add" />
 
     <Button
@@ -113,6 +63,25 @@
         android:layout_alignBottom="@+id/addtc"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/addtc"
+        android:onClick="expenseItemsAction"
         android:text="expense items" />
+
+    <TextView
+        android:id="@+id/textdescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/datePicker1"
+        android:layout_marginTop="41dp"
+        android:text="Text Description"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <DatePicker
+        android:id="@+id/datePicker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/edittravelclaim"
+        android:layout_marginTop="26dp" />
 
 </RelativeLayout>

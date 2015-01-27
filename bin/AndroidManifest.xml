@@ -22,6 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="ca.ualberta.cs.travel.TravelClaimActivity"
+            android:label="@string/title_activity_travel_claim" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cs.travel.AddTravelClaim"
+            android:label="@string/title_activity_add_travel_claim" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cs.travel.ExpenseItemActivity"
+            android:label="@string/title_activity_expense_item" >
+        </activity>
     </application>
 
 </manifest>
