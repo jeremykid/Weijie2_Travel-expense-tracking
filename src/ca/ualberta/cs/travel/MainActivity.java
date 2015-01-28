@@ -65,6 +65,10 @@ public class MainActivity extends Activity {
     	
     	ClaimListManager.initManager(this.getApplicationContext());
     	
+		Bundle extras = getIntent().getExtras();
+		 if(extras !=null) {
+		//final int temp = extras.getInt("id");
+		 }
     	Button ggButton = (Button) findViewById(R.id.addtravelclaims);
 		ListView listView = (ListView) findViewById(R.id.claimListView);
 		Collection<Claim> claims = ClaimListController.getClaimList().getClaims();
@@ -72,18 +76,7 @@ public class MainActivity extends Activity {
 		final ArrayAdapter<Claim> claimAdapter = new ArrayAdapter<Claim>(this, android.R.layout.simple_list_item_1, list);
 		listView.setAdapter(claimAdapter);
     	
-		/*
-    	ggButton.setOnClickListener(new OnClickListener() {
-    	@Override
-    	public void onClick(DialogInterface dialog,int which) {
-    		Toast.makeText(MainActivity.this, "Add a Claim", Toast.LENGTH_SHORT).show();
-    		Intent intent = new Intent(MainActivity.this,
-    		AddTravelClaim.class);
-    		startActivity(intent);
-    		}
-    	});*/
-    	
-    	//added a change observer!
+
     	ClaimListController.getClaimList().addListener(new Listener(){
     		@Override
     		public void update() {
@@ -104,7 +97,31 @@ public class MainActivity extends Activity {
 				AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
 				adb.setMessage("Delete "+list.get(position).toString()+"?");
 				adb.setCancelable(true);
+			   //
+				Bundle extras = getIntent().getExtras();
 				final int finalPosition = position;
+				
+				//
+				adb.setNeutralButton("Edit", new OnClickListener(){
+					public void onClick(DialogInterface dialog, int which){
+						
+						
+						//Claim claim = list.get(finalPosition);
+						Intent myintent = new Intent(MainActivity.this, AddTravelClaim.class);
+						myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						myintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						myintent.putExtra("pos", finalPosition);
+						
+						//myintent.putExtra("id", temp);
+						Intent intent = new Intent(MainActivity.this, AddTravelClaim.class);
+				    	startActivity(myintent);
+				}
+
+			
+				});
+				
+		          
+    	
 				adb.setPositiveButton("Delete", new OnClickListener(){
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -129,9 +146,15 @@ public class MainActivity extends Activity {
     
     //
 	public void goToAddClaimAction(View v) {
+		Bundle extras = getIntent().getExtras();
+		//int temp = extras.getInt("id");
 		Toast.makeText(this, "Add A Claim", Toast.LENGTH_SHORT).show();
-		//ClaimListController st = new ClaimListController();
+		
+		ClaimListController st = new ClaimListController();
 		Intent intent = new Intent(MainActivity.this, AddTravelClaim.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		//intent.putExtra("id", temp);
     	startActivity(intent);
 
 	}

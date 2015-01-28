@@ -3,12 +3,9 @@ package ca.ualberta.cs.travel;
 import java.io.IOException;
 
 public class ClaimListController {
-	
-	
-	// Lazy Singleton 
-	private static ClaimList claimList= null;
+	// Lazy Singleton
+	private static ClaimList claimList = null;
 
-	
 	static public ClaimList getClaimList() {
 		if (claimList == null) {
 			try {
@@ -22,20 +19,19 @@ public class ClaimListController {
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				throw new RuntimeException("Could not deserialize ClaimList from ClaimListManager");
+				throw new RuntimeException(
+						"Could not deserialize ClaimList from ClaimListManager");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				throw new RuntimeException("Could not deserialize ClaimList from ClaimListManager");
-	}
+				throw new RuntimeException(
+						"Could not deserialize ClaimList from ClaimListManager");
+			}
 		}
 		return claimList;
 	}
-	
-	
-	
-	public Claim chooseClaim() throws EmptyClaimListException{
-		
+
+	public Claim chooseClaim() throws EmptyClaimListException {
 		return getClaimList().chooseClaim();
 	}
 
@@ -43,15 +39,15 @@ public class ClaimListController {
 		// TODO Auto-generated method stub
 		getClaimList().addClaim(claim);
 	}
-	
-	
+
 	static public void saveClaimList() {
 		try {
 			ClaimListManager.getManager().saveClaimList(getClaimList());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new RuntimeException("Could not deserialize StudentList from StudentListManager");
+			throw new RuntimeException(
+					"Could not deserialize StudentList from StudentListManager");
 		}
 	}
 }

@@ -34,6 +34,14 @@
             android:name="ca.ualberta.cs.travel.ExpenseItemActivity"
             android:label="@string/title_activity_expense_item" >
         </activity>
+        <activity
+            android:name="ca.ualberta.cs.travel.EditTravelClaimActivity"
+            android:label="@string/title_activity_edit_travel_claim" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cs.travel.AddItemActivity"
+            android:label="@string/title_activity_add_item" >
+        </activity>
     </application>
 
 </manifest>

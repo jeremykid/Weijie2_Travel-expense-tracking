@@ -7,5 +7,7 @@
     <string name="title_activity_travel_claim">Travel Claim</string>
     <string name="title_activity_add_travel_claim">Add Travel Claim</string>
     <string name="title_activity_expense_item">ExpenseItemActivity</string>
+    <string name="title_activity_edit_travel_claim">EditTravelClaimActivity</string>
+    <string name="title_activity_add_item">AddItemActivity</string>
 
 </resources>

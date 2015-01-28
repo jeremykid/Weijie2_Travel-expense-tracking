@@ -46,7 +46,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/edititemname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/editdatafrom"
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText1"
+        android:layout_below="@+id/edititemname"
         android:layout_marginTop="17dp"
         android:text="To"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/editdatato"
-        android:layout_alignLeft="@+id/editText1"
+        android:layout_alignLeft="@+id/edititemname"
         android:layout_alignParentRight="true"
         android:ems="10"
         android:inputType="date" />
