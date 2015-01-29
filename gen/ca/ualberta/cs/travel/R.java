@@ -24,6 +24,7 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
+        public static final int Mainmenu=0x7f08001d;
         public static final int action_settings=0x7f08001c;
         public static final int addtc=0x7f080013;
         public static final int addtravelclaim=0x7f080015;
@@ -34,7 +35,7 @@ public final class R {
         public static final int datefromtext=0x7f080018;
         public static final int dateto=0x7f080017;
         public static final int datetotext=0x7f080019;
-        public static final int editClaimItem=0x7f08001d;
+        public static final int editClaimItem=0x7f08001e;
         public static final int editData=0x7f080008;
         public static final int editText1=0x7f080005;
         public static final int editText2=0x7f08000b;

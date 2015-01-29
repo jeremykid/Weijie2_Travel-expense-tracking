@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
     
     public void editClaims(MenuItem menu){
     	Toast.makeText(this, "Edit Claims", Toast.LENGTH_SHORT).show();
-    	Intent intent= new Intent(MainActivity.this, TravelClaimActivity.class);
+    	Intent intent= new Intent(MainActivity.this, AddTravelClaim.class);
     	startActivity(intent);
     }
     
@@ -66,9 +66,7 @@ public class MainActivity extends Activity {
     	ClaimListManager.initManager(this.getApplicationContext());
     	
 		Bundle extras = getIntent().getExtras();
-		 if(extras !=null) {
-		//final int temp = extras.getInt("id");
-		 }
+
     	Button ggButton = (Button) findViewById(R.id.addtravelclaims);
 		ListView listView = (ListView) findViewById(R.id.claimListView);
 		Collection<Claim> claims = ClaimListController.getClaimList().getClaims();
@@ -95,10 +93,9 @@ public class MainActivity extends Activity {
 			public boolean onItemLongClick(AdapterView<?> adapterView, View view,
 					int position, long id) {
 				AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
-				adb.setMessage("Delete "+list.get(position).toString()+"?");
+				adb.setMessage("Edit or Delete "+list.get(position).toString()+"?");
 				adb.setCancelable(true);
-			   //
-				Bundle extras = getIntent().getExtras();
+				
 				final int finalPosition = position;
 				
 				//
@@ -106,13 +103,11 @@ public class MainActivity extends Activity {
 					public void onClick(DialogInterface dialog, int which){
 						
 						
-						//Claim claim = list.get(finalPosition);
 						Intent myintent = new Intent(MainActivity.this, AddTravelClaim.class);
 						myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						myintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 						myintent.putExtra("pos", finalPosition);
-						
-						//myintent.putExtra("id", temp);
+						//Toast.makeText(this, "Expense Item"+ finalPosition, Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(MainActivity.this, AddTravelClaim.class);
 				    	startActivity(myintent);
 				}
@@ -147,14 +142,12 @@ public class MainActivity extends Activity {
     //
 	public void goToAddClaimAction(View v) {
 		Bundle extras = getIntent().getExtras();
-		//int temp = extras.getInt("id");
 		Toast.makeText(this, "Add A Claim", Toast.LENGTH_SHORT).show();
 		
 		ClaimListController st = new ClaimListController();
 		Intent intent = new Intent(MainActivity.this, AddTravelClaim.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		//intent.putExtra("id", temp);
     	startActivity(intent);
 
 	}

@@ -12,29 +12,40 @@ public class Claim implements Serializable{
 	 */
 	private static final long serialVersionUID = 1852502152473055665L;
 	
-	protected Date fromdate;
-	protected Date todate;
+//	protected int fromday;
+//	protected int frommonth;
+//	protected int fromyear;
+//	protected int today;
+//	protected int tomonth;
+//	protected int toyear;
+	
+	protected String fromdate;
+	protected String todate;
 	protected String descripition;
 	
 	protected String claimName;
 	
-	protected ArrayList<Item> itemList;
-	
+	protected ArrayList<Item> itemList = null;
+	protected transient ArrayList<Listener> listeners = null;
 	//protected ArrayList<Item> item;
+	
+	public Claim(String claimname) {
+		this.claimName = claimname;
+		itemList = new ArrayList<Item> ();
+		listeners = new ArrayList<Listener>();
+	}
 	
 	public void setName(String claimname){
 		
-		this.claimName= claimname;
+		claimName= claimname;
 	}
 	
 	public String getName(){
 		
-		return this.claimName;
+		return claimName;
 	};
 
-	public Claim(String claimName) {
-		this.claimName = claimName;
-	}
+
 	
 	public String toString(){
 		return getName();
@@ -64,33 +75,40 @@ public class Claim implements Serializable{
 		return ("Claim:"+getName()).hashCode();
 	}
 	
-	public Date getFromDate(){
+
+	public String getToDate(){
+		
+		return todate;
+		
+	}
+	
+	public void setToDate(String date){
+		
+		
+		todate = date;
+	}
+	
+	public String getFromDate(){
+		
 		
 		return fromdate;
 	}
 	
-	public Date getToDate(){
+	public void setFromDate(String date){
 		
-		return todate;
+		fromdate = date;
 	}
 	
-	public void setFromDate(Date fromdate){
-		
-		this.fromdate=fromdate;
-	}
 	
-	public void setToDate(Date todate){
-		
-		this.todate=todate;
-	}
-	
-	public String getdescription(){
+	public String getdescripition(){
 		
 		return descripition;
 	}
 	
-	public void setdescripion(String descripition){
+	public void setdescripition(String des){
 		
-		this.descripition=descripition;
+		descripition = des;
 	}
+	
+	
 }

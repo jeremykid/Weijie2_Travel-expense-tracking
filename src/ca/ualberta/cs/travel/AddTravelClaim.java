@@ -12,6 +12,7 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -35,6 +36,7 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 	private TextView todateView;
 	private int year, month, day;
 	private int toyear, tomonth,today;
+	private TextView descripition;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class AddTravelClaim extends Activity implements OnClickListener {
     	
     	todateView =(TextView) findViewById(R.id.datetotext);
         dateView = (TextView) findViewById(R.id.datefromtext);
+        descripition=(EditText) findViewById(R.id.enterdescription);
         calendar = Calendar.getInstance();
         tocalendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -64,20 +67,36 @@ public class AddTravelClaim extends Activity implements OnClickListener {
         showDate(year, month+1, day);
         showDate(toyear,tomonth+1,today);
         
-	
+        //Bundle b=this.getIntent().getExtras(); 
+        //final int temp = b.getInt("id");
+        
+        
         //data
         addedit = (Button) findViewById(R.id.addtc);
         claimname = (TextView) findViewById(R.id.addtravelclaimname);
-        Bundle extras = getIntent().getExtras();
+        Bundle extras = this.getIntent().getExtras();
         if (extras == null){
         	addedit.setOnClickListener(new addClaimAction());
         }
         else{
         	
-			int temp = extras.getInt("id");
-        	Claim storeclaim = ClaimListController.getClaimList().getPosition(temp);
+			int set = extras.getInt("pos");
+			Toast.makeText(this, "Expense Item"+ set, Toast.LENGTH_SHORT).show();
+        	Claim storeclaim = ClaimListController.getClaimList().getPosition(set);
         	String name = storeclaim.getName();
         	claimname.setText(name);
+        	
+        	String fromdate;
+        	fromdate = storeclaim.getFromDate();
+        	dateView.setText(fromdate);
+    		String todate;
+    		todate = storeclaim.getToDate();
+    		todateView.setText(todate);
+    		
+    		String des;
+    		des = storeclaim.getdescripition();
+    		descripition.setText(des);
+    		
         	addedit.setOnClickListener(new EditClaimAction(storeclaim));
         }
         
@@ -127,16 +146,20 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 							// TODO Auto-generated method stub
 							showDate(year, monthOfYear+1, dayOfMonth);
 						}
-					}, 2013, 7, 20);
+					}, 2015, 7, 20);
 					
 			datetoPicker.show();
 			break;
 		}
+	
+		
+	
 	}
 	
 	
 	
 	private void showDate(int year, int month, int day) {
+		
 		 dateView.setText(new StringBuilder().append(day).append("/")
 		     .append(month).append("/").append(year));
 		   }
@@ -166,7 +189,17 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 		public void onClick(View v) {
 			ClaimListController st = new ClaimListController();
 			EditText claimname = (EditText) findViewById(R.id.addtravelclaimname);
-			st.addClaim(new Claim(claimname.getText().toString()));
+			
+			TextView dateView = (TextView) findViewById(R.id.datefromtext);
+			TextView todateView= (TextView) findViewById(R.id.datetotext);
+			EditText descripition = (EditText) findViewById(R.id.enterdescription);
+			
+			Claim claim = new Claim(claimname.getText().toString());
+			st.addClaim(claim);
+			claim.setFromDate(dateView.getText().toString());
+			claim.setToDate(todateView.getText().toString());
+			claim.setdescripition(descripition.getText().toString());
+			
 			Intent intent = new Intent(AddTravelClaim.this,
 					MainActivity.class);
 			startActivity(intent);
@@ -192,16 +225,34 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 
 		
 		public void onClick(View v) {
+			
 			EditText claimname = (EditText) findViewById(R.id.addtravelclaimname);
-			((Claim) this.getClaim()).setName(claimname.getText().toString());
+			this.getClaim().setName(claimname.getText().toString());
+			
+			TextView fromdate= (TextView) findViewById(R.id.datefromtext);
+			TextView todate = (TextView) findViewById(R.id.datetotext);
+			this.getClaim().setFromDate(fromdate.getText().toString());
+			this.getClaim().setToDate(todate.getText().toString());
+			
+			EditText descripition = (EditText) findViewById(R.id.enterdescription);
+			this.getClaim().setdescripition(descripition.getText().toString());
+			
 			Intent intent = new Intent(AddTravelClaim.this,
 					MainActivity.class);
 			startActivity(intent);
 		}
 
-		private Object getClaim() {
+		private Claim getClaim() {
 			// TODO Auto-generated method stub
 			return orginalclaim;
 		}
+		
+		
 	}
+
+	 public void BackToMainMenu (MenuItem menu){
+	    	Toast.makeText(this, "Main Menu", Toast.LENGTH_SHORT).show();
+	    	Intent intent= new Intent(AddTravelClaim.this, MainActivity.class);
+	    	startActivity(intent);
+	    }
 }
