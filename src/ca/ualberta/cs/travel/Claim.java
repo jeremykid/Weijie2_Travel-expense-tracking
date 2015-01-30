@@ -25,14 +25,24 @@ public class Claim implements Serializable{
 	
 	protected String claimName;
 	
-	protected ArrayList<Item> itemList = null;
+	protected ArrayList<expenseItem> itemList = null;
 	protected transient ArrayList<Listener> listeners = null;
 	//protected ArrayList<Item> item;
 	
 	public Claim(String claimname) {
 		this.claimName = claimname;
-		itemList = new ArrayList<Item> ();
+		itemList = new ArrayList<expenseItem> ();
 		listeners = new ArrayList<Listener>();
+	}
+	
+	public ArrayList<expenseItem> getItemList(){
+		
+		return itemList;
+	}
+	
+	public void setItemList(ArrayList<expenseItem> list){
+		
+		itemList = list;
 	}
 	
 	public void setName(String claimname){
@@ -109,6 +119,42 @@ public class Claim implements Serializable{
 		
 		descripition = des;
 	}
+
+	public expenseItem getPosition(int set) {
+		
+		return itemList.get(set);
+	}
+
 	
+	public void addItem(expenseItem item) {
+		itemList.add(item);
+		notifyListener();
+		
+	}
+	
+	private void notifyListener() {
+		// TODO Auto-generated method stub
+		for (Listener listener  : getListener()) {
+			listener.update();
+		}
+	}
+
+	private ArrayList<Listener> getListener() {
+		if (listeners == null ) {
+			listeners = new ArrayList<Listener>();
+		}
+		return listeners;
+	}
+
+	public void removeItem(expenseItem item) {
+		
+		itemList.remove(item);
+	}
+
+	public void addListener(Listener l) {
+		getListener().add(l);
+			
+	}
+
 	
 }

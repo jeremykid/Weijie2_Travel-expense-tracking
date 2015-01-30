@@ -30,17 +30,30 @@
         android:text="Expense"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemexpense"
+        android:layout_toLeftOf="@+id/editText1" />
+
     <EditText
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/itemexpense"
+        android:layout_alignBottom="@+id/spinner1"
+        android:layout_alignTop="@+id/spinner1"
         android:layout_toRightOf="@+id/itemexpense"
         android:ems="10"
-        android:inputType="number" >
+        android:inputType="number" />
 
-        <requestFocus />
-    </EditText>
+    <Button
+        android:id="@+id/addedititem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="Add" />
 
 </RelativeLayout>

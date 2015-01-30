@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import android.view.Menu;
+
 //import ca.ualberta.cs.travel.test.Claim;
 
 public class ClaimList implements Serializable{
@@ -94,6 +96,12 @@ public class ClaimList implements Serializable{
 		// TODO Auto-generated method stub
 		return  claimList.get(position);
 	}
+
+
+	
+
+
+
 
 	
 }

@@ -1,11 +1,21 @@
 package ca.ualberta.cs.travel;
 
-public class Item {
+import java.util.ArrayList;
+
+public class expenseItem {
 	
 	protected String Type ;
 	protected int Expense ;
 	protected String Name;
+	protected String date;
+
+
 	
+	public expenseItem(String name) {
+		this.Name = name;
+		
+	}
+
 	public String getName(){
 		
 		return this.Name;
@@ -27,6 +37,14 @@ public class Item {
 	}
 	
 	
+	public String getDate(){
+		
+		return date;
+	}
 	
+	public void setDate(String d){
+		date = d;
+		
+	}
 	
 }

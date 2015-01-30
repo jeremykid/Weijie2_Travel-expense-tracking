@@ -28,8 +28,10 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 	private Button addedit;
 	private TextView claimname;
 	
+	
+	
 	//taken from http://www.cnblogs.com/plokmju/p/android_datepiceker.html
-	private Button btnDate, btntoDate;
+	private Button btnDate, btntoDate,gotoitem;
 	private Calendar calendar;
 	private Calendar tocalendar;
 	private TextView dateView;
@@ -70,17 +72,24 @@ public class AddTravelClaim extends Activity implements OnClickListener {
         //Bundle b=this.getIntent().getExtras(); 
         //final int temp = b.getInt("id");
         
+        //final int position = b.getInt("name");
+        
+        gotoitem = (Button) findViewById(R.id.edittritems);
+        gotoitem.setOnClickListener(this);
+        //gotoitem.setTag(position);
+        
         
         //data
         addedit = (Button) findViewById(R.id.addtc);
         claimname = (TextView) findViewById(R.id.addtravelclaimname);
-        Bundle extras = this.getIntent().getExtras();
-        if (extras == null){
+        Bundle b = this.getIntent().getExtras();
+        if (b == null){
         	addedit.setOnClickListener(new addClaimAction());
+        	addedit.setText("Add");
         }
         else{
-        	
-			int set = extras.getInt("pos");
+        	addedit.setText("Edit");
+			int set = b.getInt("name");
 			Toast.makeText(this, "Expense Item"+ set, Toast.LENGTH_SHORT).show();
         	Claim storeclaim = ClaimListController.getClaimList().getPosition(set);
         	String name = storeclaim.getName();
@@ -99,6 +108,23 @@ public class AddTravelClaim extends Activity implements OnClickListener {
     		
         	addedit.setOnClickListener(new EditClaimAction(storeclaim));
         }
+        
+        gotoitem.setOnClickListener(new OnClickListener() {
+        	
+        	
+			@Override
+			public void onClick(View v) {
+				//int itemPosition = position;
+				//Toast.makeText(AddTravelClaim.this, "open a Claim"+itemPosition,Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(AddTravelClaim.this,
+				ExpenseItemActivity.class);
+				//intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				//intent.putExtra("name", itemPosition);
+				startActivity(intent);
+				
+			}
+		});
         
 	}
 	   private DatePickerDialog.OnDateSetListener myDateListener
@@ -187,6 +213,8 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 */
 	private class addClaimAction implements OnClickListener {
 		public void onClick(View v) {
+			
+			
 			ClaimListController st = new ClaimListController();
 			EditText claimname = (EditText) findViewById(R.id.addtravelclaimname);
 			
@@ -205,14 +233,9 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 			startActivity(intent);
 		}
 	}
+	
+	
 
-	public void expenseItemsAction(View v){
-		Toast.makeText(this, "Expense Item", Toast.LENGTH_SHORT).show();
-		
-		//ClaimListController st = new ClaimListController();
-		Intent intent = new Intent(AddTravelClaim.this, ExpenseItemActivity.class);
-    	startActivity(intent);
-	}
 	
 	private class EditClaimAction implements OnClickListener {
 		private Claim orginalclaim;
@@ -239,6 +262,8 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 			
 			Intent intent = new Intent(AddTravelClaim.this,
 					MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 		}
 
@@ -253,6 +278,7 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 	 public void BackToMainMenu (MenuItem menu){
 	    	Toast.makeText(this, "Main Menu", Toast.LENGTH_SHORT).show();
 	    	Intent intent= new Intent(AddTravelClaim.this, MainActivity.class);
+
 	    	startActivity(intent);
 	    }
 }
