@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -21,6 +22,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,161 +31,135 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 public class ExpenseItemActivity extends Activity {
-
-	//private static final String FILENAME = "file.sav";//static means shared by all classes. final means cannot change
-	//private EditText bodyText;
-	protected ListView itemlist;
-	protected ArrayAdapter<expenseItem> adapter;
-	protected Claim claim;
-	protected Button additem; 
 	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.expenseitem);
-		
-		ClaimListManager.initManager(this.getApplicationContext());
-		
-		Bundle b = getIntent().getExtras();
-		final int name=b.getInt("name");
-		
-		Collection<expenseItem> Items = ClaimListController.getClaimList()
-				.getPosition(name).getItemList();
-		final ArrayList<expenseItem> items = new ArrayList<expenseItem>(Items);
-		final ArrayAdapter<expenseItem> itemAdapter = new ArrayAdapter<expenseItem>(this,
-				android.R.layout.simple_list_item_1, items);
-		itemlist = (ListView) findViewById(R.id.ItemList);
-		itemlist.setAdapter(itemAdapter);
-		
-		
-		itemlist.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view,
-					int position, long id) {
+		private TextView usdtext;
+		private ListView listView;
+		private Button btm;
+		protected void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.expenseitem);
+			
+			ClaimListManager.initManager(this.getApplicationContext());
+			
+			Bundle extras = getIntent().getExtras();
+			final int temp = extras.getInt("id");
+			Claim storeclaim = ClaimListController.getClaimList().getPosition(
+					temp);
+			//btm = (Button) findViewById(R.id.backToMain);
+			listView = (ListView) findViewById(R.id.ItemList);
+			Collection<expenseItem> Items = ClaimListController.getClaimList().getPosition(temp).getItemList();
+			final ArrayList<expenseItem> items = new ArrayList<expenseItem>(Items);
+			final ArrayAdapter<expenseItem> itemAdapter = new ArrayAdapter<expenseItem>(this,
+					android.R.layout.simple_list_item_1, items);
+			listView.setAdapter(itemAdapter);
+			
+			usdtext = (TextView) findViewById(R.id.USD);
+			String usd = storeclaim.getUSD();
+			usdtext.setText("USD="+usd);
+			
+			ClaimListController.getClaimList().getPosition(temp).addListener(new Listener() {
 
-				final int pos = position;
-				
-				AlertDialog.Builder adb = new AlertDialog.Builder(
-						ExpenseItemActivity.this);
-				adb.setMessage("Item: ");
-				adb.setCancelable(true);
-				adb.setPositiveButton("Edit",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								Intent intent = new Intent(ExpenseItemActivity.this,
-										AddItemActivity.class);
-										intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-										intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-										intent.putExtra("name", name);
-										intent.putExtra("itemid",pos);
-										startActivity(intent);
-							}
-						});
-				adb.show();
-				adapter.notifyDataSetChanged();
-
-			}
-		});
-		 			
-    	itemlist.setOnItemLongClickListener(new OnItemLongClickListener(){
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> adapterView, View view,
-					 int position, long id) {
-				AlertDialog.Builder adb = new AlertDialog.Builder(ExpenseItemActivity.this);
-				adb.setMessage("Edit or Delete "+claim.getItemList().get(position).toString()+"?");
-				adb.setCancelable(true);
-				
-				final int itemid = position;
-				
-				//
-				adb.setNeutralButton("Edit", new OnClickListener(){
-					public void onClick(DialogInterface dialog, int which){
-						
-						//taken from http://handsomeliuyang.iteye.com/blog/1315283
-						Intent myintent = new Intent(ExpenseItemActivity.this, AddItemActivity.class);
-						myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						myintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-						myintent.putExtra("name", name);
-						myintent.putExtra("itemid", itemid);
-						//Toast.makeText(this, "Expense Item"+ finalPosition, Toast.LENGTH_SHORT).show();
-						//Intent intent = new Intent(ExpenseItemActivity.this, AddItemActivity.class);
-				    	startActivity(myintent);
-				}
-
-				});
-				
-				
-		          
-    	
-
-			adb.setPositiveButton("Delete", new OnClickListener(){
 				@Override
-				public void onClick(DialogInterface dialog, int which) {
+				public void update() {
+					// TODO Auto-generated method stub
+					items.clear();
+					Collection<expenseItem> Items = ClaimListController
+							.getClaimList().getPosition(temp).getItemList();
+					items.addAll(Items);
+					itemAdapter.notifyDataSetChanged();
+				}
+			});
+			//btm.setOnClickListener(new Back_click());
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> adapterView, View view,
+						int position, long id) {
+					int pos     = position;
+					Toast.makeText(ExpenseItemActivity.this, "open a item"+pos,
+							Toast.LENGTH_SHORT).show();
 					
-					expenseItem item = claim.getItemList().get(name);
-					ClaimListController.getClaimList().getPosition(name).removeItem(item);
-			}
+					Intent intent = new Intent(ExpenseItemActivity.this,
+							AddItemActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					intent.putExtra("itemname", pos);
+					intent.putExtra("id", temp);
+					startActivity(intent);
+				}
+
 			});
-			adb.setNegativeButton("Cancel", new OnClickListener(){
-				@Override
-					public void onClick(DialogInterface dialog, int which) {
+			
+			
+			listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+				public boolean onItemLongClick(AdapterView<?> adapterView,
+						View view, int position, long id) {
+					AlertDialog.Builder adb = new AlertDialog.Builder(
+							ExpenseItemActivity.this);
+					adb.setMessage("Edit/Delete " + items.get(position).toString()
+							+ "?");
+					adb.setCancelable(true);
+					final int finalPosition = position;
+
+					adb.setNeutralButton("Edit", new OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							Intent intent = new Intent(ExpenseItemActivity.this,
+									AddItemActivity.class);
+							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+							intent.putExtra("itemname", finalPosition);
+							intent.putExtra("id", temp);
+							startActivity(intent);
+						}
+					});
+					adb.setPositiveButton("Delete", new OnClickListener(){
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							expenseItem item = items.get(finalPosition);
+							ClaimListController.getClaimList().getPosition(temp).removeItem(item);
+					}
+					});
+					adb.setNegativeButton("Cancel", new OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					});
+					adb.show();
+					return false;
 				}
 			});
-			//Toast.makeText(ListStudentsActivity.this, "Is the on click working?", Toast.LENGTH_SHORT).show();
-			adb.show();
-			return false;
+			
 		}
-    	});	
+
 		
-		ClaimListController.getClaimList().getPosition(name).addListener(new Listener() {
-					@Override
-					public void update() {
-						// TODO Auto-generated method stub
-						items.clear();
-						Collection<expenseItem> Items = ClaimListController
-								.getClaimList().getPosition(name).getItemList();
-						items.addAll(Items);
-						itemAdapter.notifyDataSetChanged();
-					}
-				});
-    	
-    	
-	}
+		public boolean onCreateOptionsMenu(Menu menu) {
+			// Inflate the menu; this adds items to the action bar if it is present.
+			getMenuInflater().inflate(R.menu.expense_item, menu);
+			return true;
+		}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.expense_item, menu);
-		return true;
-	}
-
-
-	
-	
-
-	
-
-	public void addanitemaction(View v) {
 		
-		Toast.makeText(this, "Add A Item", Toast.LENGTH_SHORT).show();
-		Bundle b = getIntent().getExtras();
-		int name = b.getInt("name");
-		
-		//ClaimListController st = new ClaimListController();
-		Intent intent = new Intent(ExpenseItemActivity.this, AddItemActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.putExtra("name", name);
-    	startActivity(intent);
+	    public void backtomainaction(MenuItem menu){
+	    	Toast.makeText(this, "Edit Claims", Toast.LENGTH_SHORT).show();
+	    	Intent intent= new Intent(ExpenseItemActivity.this, MainActivity.class);
+	    	startActivity(intent);
+	    }
 
+		public void addanitemaction(View v){
+			//Toast.makeText(this, "add new item", Toast.LENGTH_SHORT).show();
+			Bundle extras = getIntent().getExtras();
+			int temp = extras.getInt("id");
+			//int itemname = extras.getInt("itemname");
+			Intent myintent = new Intent(ExpenseItemActivity.this, AddItemActivity.class);
+			myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			myintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			myintent.putExtra("id", temp);
+			//myintent.putExtra("itemname", itemname);
+			startActivity(myintent);
+		}
 	}
-	
-
-}

@@ -17,10 +17,17 @@
         android:id="@+id/ItemList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/gotoadditem"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
+        android:layout_above="@+id/USD"
+        android:layout_alignParentLeft="true" >
 
     </ListView>
+
+    <TextView
+        android:id="@+id/USD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gotoadditem"
+        android:layout_alignParentLeft="true"
+        android:text="USD" />
 
 </RelativeLayout>

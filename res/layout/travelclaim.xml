@@ -51,6 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:text="add" />
 
@@ -118,18 +119,6 @@
         android:layout_alignBottom="@+id/setfromdate"
         android:layout_alignLeft="@+id/datetotext"
         android:text="set" />
-
-    <Button
-        android:id="@+id/edittritems"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/addtc"
-        android:onClick="expenseItemsAction"
-        android:text="expense items" />
 
 
 

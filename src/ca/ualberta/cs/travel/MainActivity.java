@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
     	
 		//Bundle extras = getIntent().getExtras();
 
-    	Button ggButton = (Button) findViewById(R.id.addtravelclaims);
+    	//Button ggButton = (Button) findViewById(R.id.addtravelclaims);
 		ListView listView = (ListView) findViewById(R.id.claimListView);
 		Collection<Claim> claims = ClaimListController.getClaimList().getClaims();
 		final ArrayList<Claim> list = new ArrayList<Claim>(claims);
@@ -107,9 +107,9 @@ public class MainActivity extends Activity {
 						Intent myintent = new Intent(MainActivity.this, AddTravelClaim.class);
 						myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						myintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-						myintent.putExtra("name", finalPosition);
-						//Toast.makeText(this, "Expense Item"+ finalPosition, Toast.LENGTH_SHORT).show();
-						Intent intent = new Intent(MainActivity.this, AddTravelClaim.class);
+						myintent.putExtra("id", finalPosition);
+		
+
 				    	startActivity(myintent);
 				}
 
@@ -151,7 +151,7 @@ public class MainActivity extends Activity {
 						ExpenseItemActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				intent.putExtra("name", itemPosition);
+				intent.putExtra("id", itemPosition);
 				startActivity(intent);
 			}
 		});
@@ -160,13 +160,13 @@ public class MainActivity extends Activity {
     
     //
 	public void goToAddClaimAction(View v) {
-		//Bundle b = getIntent().getExtras();
+		//Bundle b = getIntent().getExtras();itemPosition
 		Toast.makeText(this, "Add A Claim", Toast.LENGTH_SHORT).show();
 		
 		//ClaimListController st = new ClaimListController();
 		Intent myintent = new Intent(MainActivity.this, AddTravelClaim.class);
-		myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		myintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		//myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		//myintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     	startActivity(myintent);
 
 	}

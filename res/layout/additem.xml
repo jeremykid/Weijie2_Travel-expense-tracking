@@ -31,21 +31,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/currencytype"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/itemexpense"
-        android:layout_toLeftOf="@+id/editText1" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinner1"
-        android:layout_alignTop="@+id/spinner1"
-        android:layout_toRightOf="@+id/itemexpense"
-        android:ems="10"
-        android:inputType="number" />
+        android:layout_toLeftOf="@+id/editexpenseamount" />
 
     <Button
         android:id="@+id/addedititem"
@@ -55,5 +45,53 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:text="Add" />
+
+    <EditText
+        android:id="@+id/editexpenseamount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/currencytype"
+        android:layout_alignTop="@+id/currencytype"
+        android:layout_toRightOf="@+id/itemexpense"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/itemtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/editexpenseamount"
+        android:layout_centerVertical="true"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/itemdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/itemtime"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="27dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/setitemdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/itemdate"
+        android:layout_below="@+id/itemdate"
+        android:text="Set Date" />
+
+    <Button
+        android:id="@+id/setitemtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/setitemdate"
+        android:layout_alignBottom="@+id/setitemdate"
+        android:layout_alignLeft="@+id/itemtime"
+        android:text="Set Time" />
 
 </RelativeLayout>

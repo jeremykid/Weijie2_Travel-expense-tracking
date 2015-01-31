@@ -1,50 +1,62 @@
 package ca.ualberta.cs.travel;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class expenseItem {
+
+
+public class expenseItem implements Serializable{
 	
-	protected String Type ;
-	protected int Expense ;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2360354095004578844L;
+
+	protected String Type;
+	protected String Expense;
 	protected String Name;
 	protected String date;
-
-
+	protected String time;
 	
 	public expenseItem(String name) {
 		this.Name = name;
-		
 	}
 
-	public String getName(){
-		
+	public String getName() {
 		return this.Name;
 	}
-	
-	public void setName(String name){
+
+	public String toString(){
 		
-		this.Name=name;
+		return Name;
 	}
 	
-	public int getExpense(){
-		
+	public void setName(String name) {
+		this.Name = name;
+	}
+
+	public String getExpense() {
 		return this.Expense;
 	}
-	
-	public void setExpense(int expense){
-		
-		this.Expense=expense;
+
+	public void setExpense(String string) {
+		this.Expense = string;
 	}
-	
-	
-	public String getDate(){
-		
+
+	public String getDate() {
 		return date;
 	}
-	
-	public void setDate(String d){
+
+	public void setDate(String d) {
 		date = d;
+	}
+	
+	public String getTime(){
+		return time;
 		
 	}
 	
+	public void setTime(String t){
+		
+		time=t;
+	}
 }
