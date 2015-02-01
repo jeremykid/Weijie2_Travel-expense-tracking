@@ -22,6 +22,9 @@ package ca.ualberta.cs.travel;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -43,7 +46,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	
+	private List<Claim> allclaim;
 
 
     @Override
@@ -67,15 +70,25 @@ public class MainActivity extends Activity {
     	ClaimListManager.initManager(this.getApplicationContext());
     	
 		//Bundle extras = getIntent().getExtras();
-
+    	//taken from http://blog.csdn.net/janronehoo/article/details/8746447
     	//Button ggButton = (Button) findViewById(R.id.addtravelclaims);
 		ListView listView = (ListView) findViewById(R.id.claimListView);
-		Collection<Claim> claims = ClaimListController.getClaimList().getClaims();
+		List<Claim> claims = ClaimListController.getClaimList().getClaims();//change the collection into list
+		
+		Collections.sort(claims,new Comparator<Claim>() {
+	        @Override  
+            public int compare(Claim b1, Claim b2) {  
+                return b1.getStartDate().compareTo(b2.getStartDate());  
+            }  
+		});
+		
+		
 		final ArrayList<Claim> list = new ArrayList<Claim>(claims);
 		final ArrayAdapter<Claim> claimAdapter = new ArrayAdapter<Claim>(this, android.R.layout.simple_list_item_1, list);
 		listView.setAdapter(claimAdapter);
-    	
-
+    	//add
+		allclaim = claims;
+		
     	ClaimListController.getClaimList().addListener(new Listener(){
     		@Override
     		public void update() {
@@ -93,11 +106,13 @@ public class MainActivity extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> adapterView, View view,
 					int position, long id) {
+				final int finalPosition = position;
+				Claim claim = list.get(finalPosition);
 				AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
-				adb.setMessage("Edit or Delete "+list.get(position).toString()+"?");
+				adb.setMessage(claim.totalcurrency());
 				adb.setCancelable(true);
 				
-				final int finalPosition = position;
+				
 				
 				//
 				adb.setNeutralButton("Edit", new OnClickListener(){
@@ -155,20 +170,46 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-
-    }
-    
+		}
     //
 	public void goToAddClaimAction(View v) {
 		//Bundle b = getIntent().getExtras();itemPosition
 		Toast.makeText(this, "Add A Claim", Toast.LENGTH_SHORT).show();
 		
-		//ClaimListController st = new ClaimListController();
+		//ClaimListController st = newx ClaimListController();
 		Intent myintent = new Intent(MainActivity.this, AddTravelClaim.class);
 		//myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		//myintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     	startActivity(myintent);
 
+	}
+	
+	public void emailAction(MenuItem menu){
+		StringBuffer mailBody = new StringBuffer();
+		for (int i = 0; i < allclaim.size(); i++){
+			mailBody.append("ClaimName"+allclaim.get(i).getName() + "\n From"+allclaim.get(i).getFromDate()+
+					"To"+allclaim.get(i).getToDate()+"is"
+					+ allclaim.get(i).getStatus() + "\n description is"
+					+ allclaim.get(i).getdescripition() + "\n");
+			for (int j = 0; j <allclaim.get(i).getItemList().size();j++){
+				mailBody.append(j+"ItemName"+allclaim.get(i).getItemList().get(j).getName()+"\n"+allclaim.get(i).getItemList().get(j).getDate()
+						+"Expense"+allclaim.get(i).getItemList().get(j).getExpense()+allclaim.get(i).getItemList().get(j).getunit()
+						+"Category"+allclaim.get(i).getItemList().get(j).getcategory()
+						+"description"+allclaim.get(i).getItemList().get(j).getdescription());
+			}
+		}
+		Intent i = new Intent(Intent.ACTION_SEND);
+		i.setType("message/rfc822");
+		i.putExtra(Intent.EXTRA_TEXT, mailBody.toString());
+		try {
+			startActivity(Intent.createChooser(i, "Send mail..."));
+		} catch (android.content.ActivityNotFoundException ex) {
+			Toast.makeText(MainActivity.this,
+					"There are no email clients installed.", Toast.LENGTH_SHORT)
+					.show();
+		}
+		
+		
 	}
 }
     

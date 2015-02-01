@@ -38,6 +38,8 @@ import android.widget.AdapterView.OnItemLongClickListener;
 public class ExpenseItemActivity extends Activity {
 	
 		private TextView usdtext;
+	
+		
 		private ListView listView;
 		private Button btm;
 		protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +61,13 @@ public class ExpenseItemActivity extends Activity {
 			listView.setAdapter(itemAdapter);
 			
 			usdtext = (TextView) findViewById(R.id.USD);
-			String usd = storeclaim.getUSD();
-			usdtext.setText("USD="+usd);
-			
+			String usd = storeclaim.totalcurrency();
+			usdtext.setText(usd);
+//			
+//			cadtext = (TextView) findViewById(R.id.cad);
+//			String cad = storeclaim.getCAD();
+//			cadtext.setText("CAD="+cad);
+//			
 			ClaimListController.getClaimList().getPosition(temp).addListener(new Listener() {
 
 				@Override

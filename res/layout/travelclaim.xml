@@ -120,6 +120,11 @@
         android:layout_alignLeft="@+id/datetotext"
         android:text="set" />
 
-
+    <Spinner
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/addtravelclaimname"
+        android:layout_toRightOf="@+id/addtravelclaim" />
 
 </RelativeLayout>

@@ -3,6 +3,9 @@ package ca.ualberta.cs.travel;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
+
+import android.R.integer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -13,13 +16,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 public class AddTravelClaim extends Activity implements OnClickListener {
 	private Button addedit;
@@ -34,6 +40,11 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 	private int toyear, tomonth, today;
 	private TextView descripition;
 
+	private Spinner status;
+	private ArrayAdapter<String> statusAdapter;
+	private String statust;
+	
+	private String startdate = "0";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,6 +71,9 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 		today = calendar.get(Calendar.DAY_OF_MONTH);
 		showDate(year, month + 1, day);
 		showDate(toyear, tomonth + 1, today);
+		
+		startdate = Integer.toString(year*1000+month*100+day);
+		
 		// Bundle b=this.getIntent().getExtras();
 		// final int temp = b.getInt("id");
 		// final int position = b.getInt("name");
@@ -93,21 +107,35 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 			descripition.setText(des);
 			addedit.setOnClickListener(new EditClaimAction(storeclaim));
 		}
-//		gotoitem.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				// int itemPosition = position;
-//				// Toast.makeText(AddTravelClaim.this,
-//				// "open a Claim"+itemPosition,Toast.LENGTH_SHORT).show();
-//				Intent intent = new Intent(AddTravelClaim.this,
-//						ExpenseItemActivity.class);
-//				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//				//intent.putExtra("id", itemPosition);
-//				startActivity(intent);
-//			}
-//		});
+
+		status = (Spinner) findViewById(R.id.status);
+		statusAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, getStatus());
+		statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		status.setAdapter(statusAdapter);
+		status.setOnItemSelectedListener(new OnItemSelectedListener(){
+			  @Override
+			             public void onItemSelected(AdapterView<?> parent, View view,
+			                      int position, long id) {
+
+			           	statust = parent.getItemAtPosition(position).toString();
+			               
+			           	
+
+			            	   
+			             }
+			 
+		            @Override
+			            public void onNothingSelected(AdapterView<?> parent) {
+
+			             }
+		       });
+		
+		
+		
+		
 	}
+
+
 
 	private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
 		@Override
@@ -142,9 +170,10 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 						public void onDateSet(DatePicker view, int year,
 								int monthOfYear, int dayOfMonth) {
 							// TODO Auto-generated method stub
+							startdate =Integer.toString( year*1000+monthOfYear*100+dayOfMonth);
 							showDate(year, monthOfYear + 1, dayOfMonth);
 						}
-					}, 2015, 7, 20);
+					}, 2015, 1, 21);
 			datetoPicker.show();
 			break;
 		}
@@ -177,6 +206,7 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 			EditText descripition = (EditText) findViewById(R.id.enterdescription);
 			Claim claim = new Claim(claimname.getText().toString());
 			st.addClaim(claim);
+			claim.setStartDate(startdate);
 			claim.setFromDate(dateView.getText().toString());
 			claim.setToDate(todateView.getText().toString());
 			claim.setdescripition(descripition.getText().toString());
@@ -202,6 +232,10 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 			this.getClaim().setToDate(todate.getText().toString());
 			EditText descripition = (EditText) findViewById(R.id.enterdescription);
 			this.getClaim().setdescripition(descripition.getText().toString());
+			
+			this.getClaim().setStartDate(startdate);
+
+			
 			Intent intent = new Intent(AddTravelClaim.this, MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -214,5 +248,16 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 		}
 	}
 
+	private List<String> getStatus() {
+		// TODO Auto-generated method stub
+		List<String> dataList = new ArrayList<String>();
+		 dataList.add("progress");
+		 dataList.add("submitted");
+		 dataList.add("returned");
+		 dataList.add("approved");
+		 
+		 return dataList;
+	}
+	
 
 }

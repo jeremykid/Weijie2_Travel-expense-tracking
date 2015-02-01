@@ -16,6 +16,9 @@ public class expenseItem implements Serializable{
 	protected String Name;
 	protected String date;
 	protected String time;
+	private String unit;
+	private String category;
+	private String description;
 	
 	public expenseItem(String name) {
 		this.Name = name;
@@ -58,5 +61,35 @@ public class expenseItem implements Serializable{
 	public void setTime(String t){
 		
 		time=t;
+	}
+	
+	public void setunit(String u){
+		
+		unit= u;
+	}
+	
+	public String getunit(){
+		
+		return unit;
+	}
+	
+	public String getcategory(){
+		
+		return category;
+	}
+	
+	public String getdescription(){
+		
+		return description;
+	}
+	
+	public void setcategory(String c){
+		
+		category = c;
+	}
+	
+	public void setdescription(String d){
+		
+		description = d;
 	}
 }

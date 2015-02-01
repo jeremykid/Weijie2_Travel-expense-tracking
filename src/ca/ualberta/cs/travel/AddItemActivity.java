@@ -44,6 +44,9 @@ public class AddItemActivity extends Activity implements OnClickListener {
 	
 	private String currency;
 	
+	private TextView description;
+	private TextView category;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,7 +75,8 @@ public class AddItemActivity extends Activity implements OnClickListener {
 		showDate(year, month + 1, day);
 		showTime(hour,minute);
 		
-
+		description = (TextView) findViewById(R.id.descriptiontext);
+		category = (TextView) findViewById(R.id.categorytext);
 		
 		
 		final int temp = b.getInt("id");
@@ -94,6 +98,13 @@ public class AddItemActivity extends Activity implements OnClickListener {
 			itemdatet = openeditem.getDate();
 			itemdate.setText(itemdatet);
 			
+			String descriptiont;
+			descriptiont = openeditem.getdescription();
+			description.setText(descriptiont);
+			
+			String categoryt;
+			categoryt = openeditem.getcategory();
+			category.setText(categoryt);
 			
 			addedititem.setOnClickListener(new editItemAction(openeditem));
 		}//with id and itemname
@@ -114,14 +125,8 @@ public class AddItemActivity extends Activity implements OnClickListener {
 
 			           	currency = parent.getItemAtPosition(position).toString();
 			               
-			               if (parent.getItemAtPosition(position).toString() =="USD")
-			               {
-			            	    Toast.makeText(AddItemActivity.this,
-				                        parent.getItemAtPosition(position).toString(),
-				                          Toast.LENGTH_SHORT).show();
-			            	    
-			            	   
-			               }
+			           	
+
 			            	   
 			             }
 			 
@@ -164,7 +169,13 @@ public class AddItemActivity extends Activity implements OnClickListener {
 			this.getItem().setTime(itemtime.getText().toString());
 			this.getItem().setDate(itemdate.getText().toString());
 			
+			this.getItem().setunit(currency);
 			
+			TextView des = (TextView) findViewById(R.id.descriptiontext);
+			this.getItem().setdescription(des.getText().toString());
+			
+			TextView cat = (TextView) findViewById(R.id.categorytext);
+			this.getItem().setcategory(cat.getText().toString());
 			
 			Intent intent = new Intent(AddItemActivity.this,
 					ExpenseItemActivity.class);
@@ -200,23 +211,31 @@ public class AddItemActivity extends Activity implements OnClickListener {
 			TextView itemdate= (TextView) findViewById(R.id.itemdate);
 			newitem.setDate(itemdate.getText().toString());
 			
-
+			newitem.setunit(currency);
 			
 			
 			Claim storeclaim = ClaimListController.getClaimList().getPosition(
 					temp);
 
-			if (currency == "USD"){
-		
-				storeclaim.setUSD(expense.getText().toString());
-				Toast.makeText(AddItemActivity.this,
-						  storeclaim.getUSD(),
-	                        Toast.LENGTH_SHORT).show();
-
-			}
+//			if (currency == "USD"){
+//		
+//				storeclaim.setUSD(expense.getText().toString());
+//				Toast.makeText(AddItemActivity.this,
+//						  storeclaim.getUSD(),
+//	                        Toast.LENGTH_SHORT).show();
+//
+//			}
+//			else if (currency == "CAD"){
+//				storeclaim.setCAD(expense.getText().toString());
+//				
+//				
+//			}
+//			
+			TextView des = (TextView) findViewById(R.id.descriptiontext);
+			newitem.setdescription(des.getText().toString());
 			
-			
-			
+			TextView cat = (TextView) findViewById(R.id.categorytext);
+			newitem.setcategory(cat.getText().toString());
 			
 			Intent intent = new Intent(AddItemActivity.this,
 					ExpenseItemActivity.class);

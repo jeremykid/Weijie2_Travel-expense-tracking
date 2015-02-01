@@ -3,6 +3,7 @@ package ca.ualberta.cs.travel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 //import ca.ualberta.cs.travel.test.Claim;
 
@@ -28,7 +29,7 @@ public class ClaimList implements Serializable {
 		return listeners;
 	}
 
-	public Collection<Claim> getClaims() {
+	public List<Claim> getClaims() { // change the cllection into list
 		// TODO Auto-generated method stub
 		return claimList;
 	}

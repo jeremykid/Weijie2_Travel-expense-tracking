@@ -11,5 +11,6 @@
         android:onClick="editClaims"
         android:title="Edit Claims">
     </item>
+    <item android:id="@+id/email" android:onClick="emailAction" android:title="Email"></item>
 
 </menu>

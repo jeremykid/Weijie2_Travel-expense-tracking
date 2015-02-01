@@ -30,16 +30,17 @@ public class Claim implements Serializable {
 	protected String claimName;
 	protected ArrayList<expenseItem> itemList = null;
 	protected transient ArrayList<Listener> listeners = null;
+	protected String status = "progress";
 	
 	//protected Map<String,Integer> currencymap;
 
 
-	
+	protected String startdate = "0";
 	
 	protected String cad = "0";
 	protected String usd = "0";
-	protected String eur ;
-	protected String gbp ;
+	protected String eur = "0";
+	protected String gbp = "0";
 
 
 	
@@ -122,6 +123,7 @@ public class Claim implements Serializable {
 
 	public void addItem(expenseItem item) {
 		itemList.add(item);
+		
 		notifyListener();
 	}
 
@@ -155,62 +157,145 @@ public class Claim implements Serializable {
 		getListener().add(l);
 	}
 	
-	public void setCAD(String set){
-		int mycad;
-		int myset;
-		try {
-		    myset = Integer.parseInt(set);
-		    mycad = Integer.parseInt(cad);
-		    mycad += myset;
-		    cad = Integer.toString(mycad);
-		} catch(NumberFormatException nfe) {
-		  // Handle parse error.
+	public String totalcurrency(){
+		String cad ="0";
+		String usd ="0";
+		String eur ="0";
+		String gbp ="0";
+		
+		for (int i =0; i<itemList.size();i++){
+			if (itemList.get(i).getunit() == "USD"){
+				String s=itemList.get(i).getExpense();
+				try {
+				    int myset = Integer.parseInt(s);
+				    int myusd = Integer.parseInt(usd);
+				    myusd += myset;
+				    usd = Integer.toString(myusd);
+				} catch(NumberFormatException nfe) {
+				  // Handle parse error.
+			}
+			}
+			else if (itemList.get(i).getunit() == "CAD"){
+					String s=itemList.get(i).getExpense();
+					try {
+					    int myset = Integer.parseInt(s);
+					    int myusd = Integer.parseInt(cad);
+					    myusd += myset;
+					    cad = Integer.toString(myusd);
+					} catch(NumberFormatException nfe) {
+					  // Handle parse error.
+				}
+				
+				
+			}		
+			else if (itemList.get(i).getunit() == "EUR"){
+				String s=itemList.get(i).getExpense();
+				try {
+				    int myset = Integer.parseInt(s);
+				    int myusd = Integer.parseInt(eur);
+				    myusd += myset;
+				    eur = Integer.toString(myusd);
+				} catch(NumberFormatException nfe) {
+				  // Handle parse error.
+				}
+			
+			
+			}
+			else if (itemList.get(i).getunit() == "GBP"){
+				String s=itemList.get(i).getExpense();
+				try {
+				    int myset = Integer.parseInt(s);
+				    int myusd = Integer.parseInt(gbp);
+				    myusd += myset;
+				    gbp = Integer.toString(myusd);
+				} catch(NumberFormatException nfe) {
+				  // Handle parse error.
+			}
+			
+			
+		}	
 		}
-		
-		
-	}
-	
-	public String getCAD(){
-		
-		return cad;
-	}
-	
-	public void setUSD(String set){
-		int myusd ;
-		int myset ;
-		try {
-		    myset = Integer.parseInt(set);
-		    myusd = Integer.parseInt(usd);
-		    myusd += myset;
-		    usd = Integer.toString(myusd);
-		} catch(NumberFormatException nfe) {
-		  // Handle parse error.
+		return ("USD ="+usd+"\nCAD ="+cad+"\nEUR ="+eur+"\nGBP ="+gbp);
 		}
+
+	public String getStartDate(){
+		
+		return startdate;
 		
 	}
 	
-	public String getUSD(){
+	public void setStartDate(String date){
 		
-		return usd;
+		startdate = date;
 	}
 	
-	public void setEUR(String set){
+	public String getStatus(){
 		
-		eur +=set;
+		return status;
 	}
 	
-	public String getEUR(){
-		
-		return eur;
+	public void setStatus(String s){
+		status = s;
 	}
-	
-	public void setGBP(String set){
-		
-		gbp +=set;
-	}
-	
-	public String getGBP(){
-		
-		return gbp;
-	}
+
 }
+		
+	
+//	public void setCAD(String set){
+//		int mycad;
+//		int myset;
+//		try {
+//		    myset = Integer.parseInt(set);
+//		    mycad = Integer.parseInt(cad);
+//		    mycad += myset;
+//		    cad = Integer.toString(mycad);
+//		} catch(NumberFormatException nfe) {
+//		  // Handle parse error.
+//		}
+//		
+//		
+//	}
+//	
+//	public String getCAD(){
+//		
+//		return cad;
+//	}
+//	
+//	public void setUSD(String set){
+//		int myusd ;
+//		int myset ;
+//		try {
+//		    myset = Integer.parseInt(set);
+//		    myusd = Integer.parseInt(usd);
+//		    myusd += myset;
+//		    usd = Integer.toString(myusd);
+//		} catch(NumberFormatException nfe) {
+//		  // Handle parse error.
+//		}
+//		
+//	}
+//	
+//	public String getUSD(){
+//		
+//		return usd;
+//	}
+//	
+//	public void setEUR(String set){
+//		
+//		eur +=set;
+//	}
+//	
+//	public String getEUR(){
+//		
+//		return eur;
+//	}
+//	
+//	public void setGBP(String set){
+//		
+//		gbp +=set;
+//	}
+//	
+//	public String getGBP(){
+//		
+//		return gbp;
+//	}
