@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 //import ca.ualberta.cs.travel.test.Claim;
+//some taken from https://github.com/abramhindle/student-picker
 
 public class ClaimList implements Serializable {
 

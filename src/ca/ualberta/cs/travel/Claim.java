@@ -10,7 +10,7 @@ import java.util.Map;
 import android.R.integer;
 
 
-
+//some taken from https://github.com/abramhindle/student-picker
 
 public class Claim implements Serializable {
 	/**
