@@ -28,6 +28,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+//this class is used to add item activity add and edit items
+
 public class AddItemActivity extends Activity implements OnClickListener {
 	private TextView itemname;
 	private Button addedititem;
@@ -82,6 +84,8 @@ public class AddItemActivity extends Activity implements OnClickListener {
 		description = (TextView) findViewById(R.id.descriptiontext);
 		category = (TextView) findViewById(R.id.categorytext);
 		unit = (TextView) findViewById(R.id.textcurrency);
+		
+		// the b.size() means if size() == 1 then add new item if not means edit item
 		
 		final int temp = b.getInt("id");
 		if (b.size() == 2) {
@@ -212,6 +216,8 @@ public class AddItemActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	//add item action is add the new item into the itemlist
+	
 	public class addItemAction implements OnClickListener {
 
 		
@@ -298,6 +304,10 @@ public class AddItemActivity extends Activity implements OnClickListener {
 		}
 	};
     
+	//which taken from http://www.mkyong.com/android/android-date-picker-example/ all about datepicker
+	
+	// set an button get into datepicker then save the date into text
+	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -358,6 +368,8 @@ public class AddItemActivity extends Activity implements OnClickListener {
 		itemdate.setText(new StringBuilder().append(day).append("/")
 				.append(month).append("/").append(year));
 	}
+	
+	//add the string list to spinner
 	
 	private List<String> getDate() {
 		// TODO Auto-generated method stub

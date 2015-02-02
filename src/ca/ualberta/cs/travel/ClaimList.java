@@ -30,7 +30,7 @@ public class ClaimList implements Serializable {
 		return listeners;
 	}
 
-	public List<Claim> getClaims() { // change the cllection into list
+	public List<Claim> getClaims() { // change the collection into list in order to sort 
 		// TODO Auto-generated method stub
 		return claimList;
 	}
@@ -41,6 +41,8 @@ public class ClaimList implements Serializable {
 		notifyListeners();
 	}
 
+	//listener is to make sure the change
+	
 	private void notifyListeners() {
 		// TODO Auto-generated method stub
 		for (Listener listener : getListeners()) {

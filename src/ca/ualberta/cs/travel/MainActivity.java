@@ -44,6 +44,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+
+//this is main activity is show the list of all the claims and edit delete choose and add claim also can go into itemlist of that claim
+// if long click the claim you can see the summary of the claim
+
+
 public class MainActivity extends Activity {
 
 	private List<Claim> allclaim;
@@ -101,6 +106,9 @@ public class MainActivity extends Activity {
     		
     		
     	});
+    	
+    	//this is the list view to edit and delete the Claim
+    	
     	
     	listView.setOnItemLongClickListener(new OnItemLongClickListener(){
 

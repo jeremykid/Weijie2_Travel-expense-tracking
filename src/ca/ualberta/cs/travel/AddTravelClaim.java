@@ -27,6 +27,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+// add the Claim and edit the claim activity
+
+
 public class AddTravelClaim extends Activity implements OnClickListener {
 	private Button addedit;
 	private TextView claimname;

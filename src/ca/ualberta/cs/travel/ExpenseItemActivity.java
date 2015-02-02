@@ -33,6 +33,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemLongClickListener;
 
+//show the item list and edit add delete item and click the item we can see the summary of item
+
+
 public class ExpenseItemActivity extends Activity {
 	
 		private TextView usdtext; //usd actually is the total currency String 
@@ -88,7 +91,7 @@ public class ExpenseItemActivity extends Activity {
 			});
 			//btm.setOnClickListener(new Back_click());
 			
-			
+			//which is used for the status when the progress and returned we can edit and delete items
 			if (status.equals("progress") || status.equals("returned")){
 			
 			listView.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -129,6 +132,9 @@ public class ExpenseItemActivity extends Activity {
 				}
 			});
 			}
+			
+			//change the button text
+			
 			else{
 				
 				setstatus.setText("Can't Add An Item");
@@ -183,7 +189,7 @@ public class ExpenseItemActivity extends Activity {
 	    
 		 
 		public void addanitemaction(View v){
-			//Toast.makeText(this, "add new item", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this, "add new item", Toast.LENGTH_SHORT).show(); // if the status is not progress and returned we cannot add items
 			if (status.equals("progress") || status.equals("returned")){
 			Bundle extras = getIntent().getExtras();
 			int temp = extras.getInt("id");
@@ -248,6 +254,7 @@ public class ExpenseItemActivity extends Activity {
 			
 		}
 		
+		//use button action to go back to the main
 	    public void backtomainbuttonaction(View v){
 	    	Toast.makeText(this, "Back To Main", Toast.LENGTH_SHORT).show();
 	    	Intent intent= new Intent(ExpenseItemActivity.this, MainActivity.class);
