@@ -6,5 +6,6 @@
         android:showAsAction="never"
         android:title="@string/action_settings"/>
     <item android:id="@+id/backtomain" android:title="Back To Main" android:onClick="backtomainaction"></item>
+    <item android:id="@+id/Email" android:title="Email This Claim" android:onClick="emailaction"></item>
 
 </menu>

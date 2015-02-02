@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/dateto"
         android:layout_below="@+id/dateto"
-        android:text="TextView" />
+        android:text="press set" />
 
     <Button
         android:id="@+id/setfromdate"
@@ -125,6 +125,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/addtravelclaimname"
+        android:layout_alignTop="@+id/addtravelclaimname"
         android:layout_toRightOf="@+id/addtravelclaim" />
+
+    <TextView
+        android:id="@+id/textstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/addtravelclaim"
+        android:layout_alignLeft="@+id/dateto"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="progress" />
 
 </RelativeLayout>

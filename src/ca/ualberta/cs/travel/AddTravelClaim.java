@@ -43,8 +43,12 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 	private Spinner status;
 	private ArrayAdapter<String> statusAdapter;
 	private String statust;
+	private TextView statustext;
 	
 	private String startdate = "0";
+	private String sta = "progress";
+	private int laststatus = 0; //progress = 0 submit = 1 return = 2 approved = 3
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,8 +76,8 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 		showDate(year, month + 1, day);
 		showDate(toyear, tomonth + 1, today);
 		
-		startdate = Integer.toString(year*1000+month*100+day);
 		
+		statustext = (TextView) findViewById(R.id.textstatus);
 		// Bundle b=this.getIntent().getExtras();
 		// final int temp = b.getInt("id");
 		// final int position = b.getInt("name");
@@ -85,6 +89,7 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 		claimname = (TextView) findViewById(R.id.addtravelclaimname);
 		Bundle b = this.getIntent().getExtras();
 		if (b == null) {
+			startdate = Integer.toString(year*1000+month*100+day);
 			addedit.setOnClickListener(new addClaimAction());
 			addedit.setText("Add");
 		} else {
@@ -105,6 +110,25 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 			String des;
 			des = storeclaim.getdescripition();
 			descripition.setText(des);
+			
+			startdate = storeclaim.getStartDate();
+			
+			
+			sta=storeclaim.getStatus();
+			statustext.setText(sta);
+		
+			if (sta.equals("submitted")){
+				
+				laststatus = 2;
+			}
+			else if(sta.equals("approved")){
+				
+				laststatus =3;
+			}else if (sta.equals("returned")){
+				
+				laststatus = 1;
+			}
+			
 			addedit.setOnClickListener(new EditClaimAction(storeclaim));
 		}
 
@@ -118,7 +142,17 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 			                      int position, long id) {
 
 			           	statust = parent.getItemAtPosition(position).toString();
-			               
+						if (sta.equals("submitted")){
+							
+							laststatus = 2;
+						}
+						else if(sta.equals("approved")){
+							
+							laststatus =3;
+						}else if (sta.equals("returned")){
+							
+							laststatus = 1;
+						}
 			           	
 
 			            	   
@@ -210,6 +244,8 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 			claim.setFromDate(dateView.getText().toString());
 			claim.setToDate(todateView.getText().toString());
 			claim.setdescripition(descripition.getText().toString());
+			claim.setStatus(statust);
+			
 			Intent intent = new Intent(AddTravelClaim.this, MainActivity.class);
 			startActivity(intent);
 		}
@@ -224,6 +260,7 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 		}
 
 		public void onClick(View v) {
+			if (laststatus <=1){
 			EditText claimname = (EditText) findViewById(R.id.addtravelclaimname);
 			this.getClaim().setName(claimname.getText().toString());
 			TextView fromdate = (TextView) findViewById(R.id.datefromtext);
@@ -233,9 +270,10 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 			EditText descripition = (EditText) findViewById(R.id.enterdescription);
 			this.getClaim().setdescripition(descripition.getText().toString());
 			
-			this.getClaim().setStartDate(startdate);
-
-			
+			this.getClaim().setStartDate(startdate);}
+			if (laststatus <3){
+			this.getClaim().setStatus(statust);
+		}
 			Intent intent = new Intent(AddTravelClaim.this, MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -251,11 +289,18 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 	private List<String> getStatus() {
 		// TODO Auto-generated method stub
 		List<String> dataList = new ArrayList<String>();
-		 dataList.add("progress");
+		if (laststatus==0){ 
+		dataList.add("progress");
+		}
+		if (laststatus<3){
 		 dataList.add("submitted");
+		}
+		if (laststatus==2 || laststatus ==1){
 		 dataList.add("returned");
+		}
+		if (laststatus ==2){
 		 dataList.add("approved");
-		 
+		}
 		 return dataList;
 	}
 	

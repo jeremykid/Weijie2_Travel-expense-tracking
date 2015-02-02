@@ -56,8 +56,9 @@ public class MainActivity extends Activity {
         return true;
     }
     
+    //just follow student picker to use the menu to get into the add Claim
     public void editClaims(MenuItem menu){
-    	Toast.makeText(this, "Edit Claims", Toast.LENGTH_SHORT).show();
+    	Toast.makeText(this, "Add a Claim", Toast.LENGTH_SHORT).show();
     	Intent intent= new Intent(MainActivity.this, AddTravelClaim.class);
     	startActivity(intent);
     }
@@ -109,7 +110,7 @@ public class MainActivity extends Activity {
 				final int finalPosition = position;
 				Claim claim = list.get(finalPosition);
 				AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
-				adb.setMessage(claim.totalcurrency());
+				adb.setMessage(claim.getName()+" total cost \n"+claim.totalcurrency()+"\n From "+claim.getFromDate()+" to "+claim.getToDate());
 				adb.setCancelable(true);
 				
 				
@@ -147,7 +148,7 @@ public class MainActivity extends Activity {
 				});
 				//Toast.makeText(ListStudentsActivity.this, "Is the on click working?", Toast.LENGTH_SHORT).show();
 				adb.show();
-				return false;
+				return true;
 			}
     		
     		}
@@ -162,12 +163,12 @@ public class MainActivity extends Activity {
 				Toast.makeText(MainActivity.this,
 						"open a Claim" + itemPosition, Toast.LENGTH_SHORT)
 						.show();
-				Intent intent = new Intent(MainActivity.this,
+				Intent myintent = new Intent(MainActivity.this,
 						ExpenseItemActivity.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				intent.putExtra("id", itemPosition);
-				startActivity(intent);
+				myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				myintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				myintent.putExtra("id", itemPosition);
+				startActivity(myintent);
 			}
 		});
 		}
@@ -184,6 +185,8 @@ public class MainActivity extends Activity {
 
 	}
 	
+	
+	//taken from http://stackoverflow.com/questions/2197741/how-can-i-send-emails-from-my-android-application
 	public void emailAction(MenuItem menu){
 		StringBuffer mailBody = new StringBuffer();
 		for (int i = 0; i < allclaim.size(); i++){
@@ -193,16 +196,16 @@ public class MainActivity extends Activity {
 					+ allclaim.get(i).getdescripition() + "\n");
 			for (int j = 0; j <allclaim.get(i).getItemList().size();j++){
 				mailBody.append(j+"ItemName"+allclaim.get(i).getItemList().get(j).getName()+"\n"+allclaim.get(i).getItemList().get(j).getDate()
-						+"Expense"+allclaim.get(i).getItemList().get(j).getExpense()+allclaim.get(i).getItemList().get(j).getunit()
-						+"Category"+allclaim.get(i).getItemList().get(j).getcategory()
-						+"description"+allclaim.get(i).getItemList().get(j).getdescription());
+						+"\n Expense"+allclaim.get(i).getItemList().get(j).getExpense()+allclaim.get(i).getItemList().get(j).getunit()
+						+"\n Category"+allclaim.get(i).getItemList().get(j).getcategory()
+						+"\n description"+allclaim.get(i).getItemList().get(j).getdescription());
 			}
 		}
-		Intent i = new Intent(Intent.ACTION_SEND);
-		i.setType("message/rfc822");
-		i.putExtra(Intent.EXTRA_TEXT, mailBody.toString());
+		Intent myintent = new Intent(Intent.ACTION_SEND);
+		myintent.setType("message/rfc822");
+		myintent.putExtra(Intent.EXTRA_TEXT, mailBody.toString());
 		try {
-			startActivity(Intent.createChooser(i, "Send mail..."));
+			startActivity(Intent.createChooser(myintent, "Send mail..."));
 		} catch (android.content.ActivityNotFoundException ex) {
 			Toast.makeText(MainActivity.this,
 					"There are no email clients installed.", Toast.LENGTH_SHORT)

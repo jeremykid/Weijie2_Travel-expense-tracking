@@ -24,6 +24,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.BounceInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
@@ -37,11 +38,12 @@ import android.widget.AdapterView.OnItemLongClickListener;
 
 public class ExpenseItemActivity extends Activity {
 	
-		private TextView usdtext;
-	
+		private TextView usdtext; //usd actually is the total currency String 
+		private Claim emailclaim; // email claim is just copy from the claim from claim list controller in order to email the claim
 		
-		private ListView listView;
-		private Button btm;
+		private ListView listView; //list
+		private TextView claimname;
+		
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.expenseitem);
@@ -52,7 +54,7 @@ public class ExpenseItemActivity extends Activity {
 			final int temp = extras.getInt("id");
 			Claim storeclaim = ClaimListController.getClaimList().getPosition(
 					temp);
-			//btm = (Button) findViewById(R.id.backToMain);
+			emailclaim = storeclaim;
 			listView = (ListView) findViewById(R.id.ItemList);
 			Collection<expenseItem> Items = ClaimListController.getClaimList().getPosition(temp).getItemList();
 			final ArrayList<expenseItem> items = new ArrayList<expenseItem>(Items);
@@ -64,6 +66,11 @@ public class ExpenseItemActivity extends Activity {
 			String usd = storeclaim.totalcurrency();
 			usdtext.setText(usd);
 //			
+			claimname = (TextView) findViewById(R.id.claimnameinitemlist);
+			String claimn = storeclaim.getName();
+			claimname.setText(claimn);
+			
+			
 //			cadtext = (TextView) findViewById(R.id.cad);
 //			String cad = storeclaim.getCAD();
 //			cadtext.setText("CAD="+cad);
@@ -82,25 +89,7 @@ public class ExpenseItemActivity extends Activity {
 			});
 			//btm.setOnClickListener(new Back_click());
 			
-			listView.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> adapterView, View view,
-						int position, long id) {
-					int pos     = position;
-					Toast.makeText(ExpenseItemActivity.this, "open a item"+pos,
-							Toast.LENGTH_SHORT).show();
-					
-					Intent intent = new Intent(ExpenseItemActivity.this,
-							AddItemActivity.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					intent.putExtra("itemname", pos);
-					intent.putExtra("id", temp);
-					startActivity(intent);
-				}
-
-			});
+			
 			
 			
 			listView.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -136,10 +125,40 @@ public class ExpenseItemActivity extends Activity {
 						}
 					});
 					adb.show();
-					return false;
+					return true;
 				}
 			});
-			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> adapterView, View view,
+						int position, long id) {
+					final int pos     = position;
+					//Bundle b = getIntent().getExtras();
+					
+					
+					
+					AlertDialog.Builder adb = new AlertDialog.Builder(
+							ExpenseItemActivity.this);
+					adb.setMessage("Name: " + items.get(position).toString()
+							+ "\nDate: "+items.get(position).getDate()+"\nTime: "+items.get(position).getTime()
+							+ "\nCategory: "+items.get(position).getcategory() + "\nExpense: "+items.get(position).getExpense()+items.get(position).getunit());
+					adb.setCancelable(true);
+					
+					Toast.makeText(ExpenseItemActivity.this, "open a item"+pos,
+							Toast.LENGTH_SHORT).show();
+					
+/*					Intent intent = new Intent(ExpenseItemActivity.this,
+							AddItemActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					intent.putExtra("itemname", pos);
+					intent.putExtra("id", temp);
+					startActivity(intent);*/
+					adb.show();
+				}
+
+			});
 		}
 
 		
@@ -167,5 +186,33 @@ public class ExpenseItemActivity extends Activity {
 			myintent.putExtra("id", temp);
 			//myintent.putExtra("itemname", itemname);
 			startActivity(myintent);
+		}
+		
+		
+		
+		
+		//taken from http://stackoverflow.com/questions/2197741/how-can-i-send-emails-from-my-android-application
+		public void emailaction(MenuItem menu){
+			StringBuffer mailBody = new StringBuffer();
+			
+				for (int j = 0; j <emailclaim.getItemList().size();j++){
+					mailBody.append(j+"ItemName"+emailclaim.getItemList().get(j).getName()+"\n"+emailclaim.getItemList().get(j).getDate()
+							+"\n Expense"+emailclaim.getItemList().get(j).getExpense()+emailclaim.getItemList().get(j).getunit()
+							+"\n Category"+emailclaim.getItemList().get(j).getcategory()
+							+"\n description"+emailclaim.getItemList().get(j).getdescription());
+				
+			}
+			Intent myintent = new Intent(Intent.ACTION_SEND);
+			myintent.setType("message/rfc822");
+			myintent.putExtra(Intent.EXTRA_TEXT, mailBody.toString());
+			try {
+				startActivity(Intent.createChooser(myintent, "Send mail..."));
+			} catch (android.content.ActivityNotFoundException ex) {
+				Toast.makeText(ExpenseItemActivity.this,
+						"There are no email clients installed.", Toast.LENGTH_SHORT)
+						.show();
+			}
+			
+			
 		}
 	}

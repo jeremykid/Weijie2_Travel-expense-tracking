@@ -57,15 +57,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/itemtime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/setitemtime"
-        android:layout_alignRight="@+id/editexpenseamount"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -116,6 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/description"
         android:layout_below="@+id/itemexpense" />
 
     <EditText
@@ -123,8 +115,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/currencytype"
+        android:layout_toLeftOf="@+id/textcurrency"
+        android:layout_toRightOf="@+id/category"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textcurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editexpenseamount"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:id="@+id/itemtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/itemdate"
+        android:layout_alignBottom="@+id/itemdate"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/itemexpense"
-        android:ems="10" />
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

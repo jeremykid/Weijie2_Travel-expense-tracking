@@ -30,7 +30,7 @@ public class expenseItem implements Serializable{
 
 	public String toString(){
 		
-		return Name;
+		return Name+" spends "+Expense+unit;
 	}
 	
 	public void setName(String name) {

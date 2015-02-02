@@ -9,7 +9,7 @@
     <item
         android:id="@+id/editClaimItem"
         android:onClick="editClaims"
-        android:title="Edit Claims">
+        android:title="Add A Claim">
     </item>
     <item android:id="@+id/email" android:onClick="emailAction" android:title="Email"></item>
 

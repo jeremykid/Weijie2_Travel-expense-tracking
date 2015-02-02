@@ -71,7 +71,7 @@ public class Claim implements Serializable {
 	};
 
 	public String toString() {
-		return getName();
+		return getName()+" status is "+status;
 	}
 
 	public boolean equals(Object compareClaim) {

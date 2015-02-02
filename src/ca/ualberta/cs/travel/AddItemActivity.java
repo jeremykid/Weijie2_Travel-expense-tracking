@@ -46,6 +46,7 @@ public class AddItemActivity extends Activity implements OnClickListener {
 	
 	private TextView description;
 	private TextView category;
+	private TextView unit;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,7 @@ public class AddItemActivity extends Activity implements OnClickListener {
 		
 		description = (TextView) findViewById(R.id.descriptiontext);
 		category = (TextView) findViewById(R.id.categorytext);
-		
+		unit = (TextView) findViewById(R.id.textcurrency);
 		
 		final int temp = b.getInt("id");
 		if (b.size() == 2) {
@@ -106,6 +107,10 @@ public class AddItemActivity extends Activity implements OnClickListener {
 			categoryt = openeditem.getcategory();
 			category.setText(categoryt);
 			
+			String unitt;
+			unitt = openeditem.getunit();
+			unit.setText(unitt);
+			
 			addedititem.setOnClickListener(new editItemAction(openeditem));
 		}//with id and itemname
 		else if (b.size() == 1) {
@@ -113,7 +118,7 @@ public class AddItemActivity extends Activity implements OnClickListener {
 		}//with id
 		
 		// oldClaim = (ListView)findViewById(R.id.evenListView);
-		
+		//taken from http://stackoverflow.com/questions/26119284/android-spinner-onnothingselected
 		currencytype = (Spinner) findViewById(R.id.currencytype);
 		CurrencyAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, getDate());
 		CurrencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -176,6 +181,9 @@ public class AddItemActivity extends Activity implements OnClickListener {
 			
 			TextView cat = (TextView) findViewById(R.id.categorytext);
 			this.getItem().setcategory(cat.getText().toString());
+			
+			TextView unit = (TextView) findViewById(R.id.textcurrency);
+			this.getItem().setunit(unit.getText().toString());
 			
 			Intent intent = new Intent(AddItemActivity.this,
 					ExpenseItemActivity.class);
