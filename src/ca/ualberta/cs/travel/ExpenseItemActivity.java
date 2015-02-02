@@ -120,6 +120,7 @@ public class ExpenseItemActivity extends Activity {
 						public void onClick(DialogInterface dialog, int which) {
 							expenseItem item = items.get(finalPosition);
 							ClaimListController.getClaimList().getPosition(temp).removeItem(item);
+							ClaimListController.saveClaimList();
 					}
 					});
 					adb.setNegativeButton("Cancel", new OnClickListener() {
@@ -182,9 +183,11 @@ public class ExpenseItemActivity extends Activity {
 	    	Intent intent= new Intent(ExpenseItemActivity.this, MainActivity.class);
 	    	startActivity(intent);
 	    }
-
+	    
+		 
 		public void addanitemaction(View v){
 			//Toast.makeText(this, "add new item", Toast.LENGTH_SHORT).show();
+			if (status.equals("progress") || status.equals("returned")){
 			Bundle extras = getIntent().getExtras();
 			int temp = extras.getInt("id");
 			//int itemname = extras.getInt("itemname");
@@ -194,8 +197,8 @@ public class ExpenseItemActivity extends Activity {
 			myintent.putExtra("id", temp);
 			//myintent.putExtra("itemname", itemname);
 			startActivity(myintent);
-		}
-		
+			}
+		}		
 		
 		
 		
