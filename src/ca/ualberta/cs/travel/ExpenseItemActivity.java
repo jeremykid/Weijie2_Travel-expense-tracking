@@ -12,9 +12,6 @@ import java.util.Collection;
 import java.util.Date;
 
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
