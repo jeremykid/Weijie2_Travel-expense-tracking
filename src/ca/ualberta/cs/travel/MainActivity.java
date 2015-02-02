@@ -139,6 +139,7 @@ public class MainActivity extends Activity {
 					public void onClick(DialogInterface dialog, int which) {
 						Claim claim = list.get(finalPosition);
 						ClaimListController.getClaimList().removeClaim(claim);
+						ClaimListController.saveClaimList();
 				}
 				});
 				adb.setNegativeButton("Cancel", new OnClickListener(){

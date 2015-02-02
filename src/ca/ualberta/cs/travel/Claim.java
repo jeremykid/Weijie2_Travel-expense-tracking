@@ -28,7 +28,7 @@ public class Claim implements Serializable {
 	protected String todate;
 	protected String descripition;
 	protected String claimName;
-	protected ArrayList<expenseItem> itemList = null;
+	protected ArrayList<expenseItem> itemList ;
 	protected transient ArrayList<Listener> listeners = null;
 	protected String status = "progress";
 	
@@ -41,8 +41,8 @@ public class Claim implements Serializable {
 	protected String usd = "0";
 	protected String eur = "0";
 	protected String gbp = "0";
-
-
+	
+	protected String totalcurrency;
 	
 	
 	// protected ArrayList<Item> item;
@@ -215,6 +215,7 @@ public class Claim implements Serializable {
 			
 		}	
 		}
+		totalcurrency = "USD ="+usd+"\nCAD ="+cad+"\nEUR ="+eur+"\nGBP ="+gbp;
 		return ("USD ="+usd+"\nCAD ="+cad+"\nEUR ="+eur+"\nGBP ="+gbp);
 		}
 

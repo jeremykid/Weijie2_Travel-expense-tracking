@@ -245,7 +245,7 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 			claim.setToDate(todateView.getText().toString());
 			claim.setdescripition(descripition.getText().toString());
 			claim.setStatus(statust);
-			
+			ClaimListController.saveClaimList();
 			Intent intent = new Intent(AddTravelClaim.this, MainActivity.class);
 			startActivity(intent);
 		}
@@ -273,7 +273,8 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 			this.getClaim().setStartDate(startdate);}
 			if (laststatus <3){
 			this.getClaim().setStatus(statust);
-		}
+			}
+			ClaimListController.saveClaimList();
 			Intent intent = new Intent(AddTravelClaim.this, MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

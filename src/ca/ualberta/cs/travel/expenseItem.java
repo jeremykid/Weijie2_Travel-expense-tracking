@@ -38,11 +38,11 @@ public class expenseItem implements Serializable{
 	}
 
 	public String getExpense() {
-		return this.Expense;
+		return Expense;
 	}
 
 	public void setExpense(String string) {
-		this.Expense = string;
+		Expense = string;
 	}
 
 	public String getDate() {

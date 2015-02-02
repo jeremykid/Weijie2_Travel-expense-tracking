@@ -89,6 +89,7 @@ public class AddItemActivity extends Activity implements OnClickListener {
 			String amount = openeditem.getExpense();
 			Toast.makeText(this, iname, Toast.LENGTH_SHORT).show();
 			itemname.setText(iname);
+			
 			expense.setText(amount);
 			
 			String itemtimet;
@@ -184,6 +185,13 @@ public class AddItemActivity extends Activity implements OnClickListener {
 			
 			TextView unit = (TextView) findViewById(R.id.textcurrency);
 			this.getItem().setunit(unit.getText().toString());
+			//ClaimListController.saveClaimList();
+
+			TextView expense = (TextView) findViewById(R.id.editexpenseamount);
+			this.getItem().setExpense(expense.getText().toString());
+			
+			ClaimListController.saveClaimList();
+
 			
 			Intent intent = new Intent(AddItemActivity.this,
 					ExpenseItemActivity.class);
@@ -191,7 +199,7 @@ public class AddItemActivity extends Activity implements OnClickListener {
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.putExtra("id", temp);
 			intent.putExtra("itemname", itemid);
-			ClaimListController.saveClaimList();
+			//ClaimListController.saveClaimList();
 			startActivity(intent);
 		}
 		
@@ -220,7 +228,8 @@ public class AddItemActivity extends Activity implements OnClickListener {
 			newitem.setDate(itemdate.getText().toString());
 			
 			newitem.setunit(currency);
-			
+			TextView expense = (TextView) findViewById(R.id.editexpenseamount);
+			newitem.setExpense(expense.getText().toString());
 			
 			Claim storeclaim = ClaimListController.getClaimList().getPosition(
 					temp);
@@ -244,13 +253,13 @@ public class AddItemActivity extends Activity implements OnClickListener {
 			
 			TextView cat = (TextView) findViewById(R.id.categorytext);
 			newitem.setcategory(cat.getText().toString());
-			
+			ClaimListController.saveClaimList();
 			Intent intent = new Intent(AddItemActivity.this,
 					ExpenseItemActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.putExtra("id", temp);
-			ClaimListController.saveClaimList();
+			
 			startActivity(intent);
 		}
 	}
