@@ -13,24 +13,6 @@
         android:onClick="addanitemaction"
         android:text="Add An Item" />
 
-    <ListView
-        android:id="@+id/ItemList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/USD"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/claimnameinitemlist" >
-
-    </ListView>
-
-    <TextView
-        android:id="@+id/USD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/gotoadditem"
-        android:layout_alignParentLeft="true"
-        android:text="USD" />
-
     <TextView
         android:id="@+id/claimnameinitemlist"
         android:layout_width="wrap_content"
@@ -40,5 +22,42 @@
         android:layout_alignParentTop="true"
         android:text="ClaimName"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/backtomainbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gotoadditem"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:onClick="backtomainbuttonaction"
+        android:text="Back To Main" />
+
+    <ListView
+        android:id="@+id/ItemList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/backtomainbutton"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/claimnameinitemlist" >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/USD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/backtomainbutton"
+        android:layout_alignParentRight="true"
+        android:text="USD" />
+
+    <Button
+        android:id="@+id/emailbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:onClick="emailbuttonaction"
+        android:text="Email" />
 
 </RelativeLayout>

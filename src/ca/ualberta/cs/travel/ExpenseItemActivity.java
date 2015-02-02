@@ -44,6 +44,8 @@ public class ExpenseItemActivity extends Activity {
 		private ListView listView; //list
 		private TextView claimname;
 		
+		private Button setstatus;
+		private String status;
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.expenseitem);
@@ -69,8 +71,8 @@ public class ExpenseItemActivity extends Activity {
 			claimname = (TextView) findViewById(R.id.claimnameinitemlist);
 			String claimn = storeclaim.getName();
 			claimname.setText(claimn);
-			
-			
+			status = storeclaim.getStatus();
+			setstatus =(Button) findViewById(R.id.gotoadditem);
 //			cadtext = (TextView) findViewById(R.id.cad);
 //			String cad = storeclaim.getCAD();
 //			cadtext.setText("CAD="+cad);
@@ -90,7 +92,7 @@ public class ExpenseItemActivity extends Activity {
 			//btm.setOnClickListener(new Back_click());
 			
 			
-			
+			if (status.equals("progress") || status.equals("returned")){
 			
 			listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 				public boolean onItemLongClick(AdapterView<?> adapterView,
@@ -128,6 +130,12 @@ public class ExpenseItemActivity extends Activity {
 					return true;
 				}
 			});
+			}
+			else{
+				
+				setstatus.setText("Can't Add An Item");
+			}
+			
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -215,4 +223,35 @@ public class ExpenseItemActivity extends Activity {
 			
 			
 		}
+		
+		public void emailbuttonaction(View v){
+			StringBuffer mailBody = new StringBuffer();
+			
+				for (int j = 0; j <emailclaim.getItemList().size();j++){
+					mailBody.append(j+"ItemName"+emailclaim.getItemList().get(j).getName()+"\n"+emailclaim.getItemList().get(j).getDate()
+							+"\n Expense"+emailclaim.getItemList().get(j).getExpense()+emailclaim.getItemList().get(j).getunit()
+							+"\n Category"+emailclaim.getItemList().get(j).getcategory()
+							+"\n description"+emailclaim.getItemList().get(j).getdescription());
+				
+			}
+			Intent myintent = new Intent(Intent.ACTION_SEND);
+			myintent.setType("message/rfc822");
+			myintent.putExtra(Intent.EXTRA_TEXT, mailBody.toString());
+			try {
+				startActivity(Intent.createChooser(myintent, "Send mail..."));
+			} catch (android.content.ActivityNotFoundException ex) {
+				Toast.makeText(ExpenseItemActivity.this,
+						"There are no email clients installed.", Toast.LENGTH_SHORT)
+						.show();
+			}
+			
+			
+		}
+		
+	    public void backtomainbuttonaction(View v){
+	    	Toast.makeText(this, "Back To Main", Toast.LENGTH_SHORT).show();
+	    	Intent intent= new Intent(ExpenseItemActivity.this, MainActivity.class);
+	    	startActivity(intent);
+	    }
+		
 	}
