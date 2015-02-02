@@ -36,7 +36,9 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 	private Calendar tocalendar;
 	private TextView dateView;
 	private TextView todateView;
-	private int year, month, day;
+	private int year = 2014;
+	private int month = 11;
+	private int day = 1;
 	private int toyear, tomonth, today;
 	private TextView descripition;
 
@@ -73,8 +75,8 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 		tomonth = calendar.get(Calendar.MONTH);
 		day = calendar.get(Calendar.DAY_OF_MONTH);
 		today = calendar.get(Calendar.DAY_OF_MONTH);
-		showDate(year, month + 1, day);
-		showDate(toyear, tomonth + 1, today);
+		showDate(year, month, day);
+		showtoDate(toyear, tomonth, today);
 		
 		
 		statustext = (TextView) findViewById(R.id.textstatus);
@@ -194,7 +196,7 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 							// TODO Auto-generated method stub
 							showtoDate(year, monthOfYear + 1, dayOfMonth);
 						}
-					}, 2013, 7, 20);
+					}, 2014, 12, 1);
 			datePicker.show();
 			break;
 		case R.id.setfromdate:
@@ -207,7 +209,7 @@ public class AddTravelClaim extends Activity implements OnClickListener {
 							startdate =Integer.toString( year*1000+monthOfYear*100+dayOfMonth);
 							showDate(year, monthOfYear + 1, dayOfMonth);
 						}
-					}, 2015, 1, 21);
+					}, 2014, 12, 10);
 			datetoPicker.show();
 			break;
 		}

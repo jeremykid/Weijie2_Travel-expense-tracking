@@ -79,7 +79,7 @@ public class ClaimList implements Serializable {
 		// TODO Auto-generated method stub
 		getListeners().remove(l);
 	}
-
+//get the position of the claim 
 	public Claim getPosition(int position) {
 		// TODO Auto-generated method stub
 		return claimList.get(position);

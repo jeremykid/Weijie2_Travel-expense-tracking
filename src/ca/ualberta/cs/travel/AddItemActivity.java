@@ -37,7 +37,10 @@ public class AddItemActivity extends Activity implements OnClickListener {
 	//reference from http://www.mkyong.com/android/android-date-picker-example/ all about datepicker
 	private Button btnDate, btnTime;
 	private Calendar calendar;
-	private int day, year, month,hour,minute;
+	private int day= 10; 
+	private int year = 2014; 
+	private int month = 11;
+	private int hour,minute;
 	
 	private Spinner currencytype;
 	private ArrayAdapter<String> CurrencyAdapter;
@@ -73,7 +76,7 @@ public class AddItemActivity extends Activity implements OnClickListener {
 		hour = calendar.get(Calendar.HOUR_OF_DAY);
 		minute = calendar.get(Calendar.MINUTE);
 		
-		showDate(year, month + 1, day);
+		showDate(2014, 12, 10);
 		showTime(hour,minute);
 		
 		description = (TextView) findViewById(R.id.descriptiontext);
@@ -320,7 +323,7 @@ public class AddItemActivity extends Activity implements OnClickListener {
 							day = dayOfMonth;
 							
 						}
-					}, 2013, 7, 20);
+					}, 2014, 12, 10);
 			datePicker.show();
 			break;
 

@@ -164,7 +164,7 @@ public class Claim implements Serializable {
 		String gbp ="0";
 		
 		for (int i =0; i<itemList.size();i++){
-			if (itemList.get(i).getunit() == "USD"){
+			if (itemList.get(i).getunit().equals("USD")){
 				String s=itemList.get(i).getExpense();
 				try {
 				    int myset = Integer.parseInt(s);
@@ -175,7 +175,7 @@ public class Claim implements Serializable {
 				  // Handle parse error.
 			}
 			}
-			else if (itemList.get(i).getunit() == "CAD"){
+			else if (itemList.get(i).getunit().equals("CAD")){
 					String s=itemList.get(i).getExpense();
 					try {
 					    int myset = Integer.parseInt(s);
@@ -188,7 +188,7 @@ public class Claim implements Serializable {
 				
 				
 			}		
-			else if (itemList.get(i).getunit() == "EUR"){
+			else if (itemList.get(i).getunit().equals("EUR")){
 				String s=itemList.get(i).getExpense();
 				try {
 				    int myset = Integer.parseInt(s);
@@ -201,7 +201,7 @@ public class Claim implements Serializable {
 			
 			
 			}
-			else if (itemList.get(i).getunit() == "GBP"){
+			else if (itemList.get(i).getunit().equals("GBP")){
 				String s=itemList.get(i).getExpense();
 				try {
 				    int myset = Integer.parseInt(s);
@@ -239,6 +239,11 @@ public class Claim implements Serializable {
 		status = s;
 	}
 
+	public String gettotalcurrency(){
+		
+		return totalcurrency;
+	}
+	
 }
 		
 	

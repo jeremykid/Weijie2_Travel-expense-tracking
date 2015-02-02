@@ -64,9 +64,9 @@ public class ExpenseItemActivity extends Activity {
 					android.R.layout.simple_list_item_1, items);
 			listView.setAdapter(itemAdapter);
 			
-			usdtext = (TextView) findViewById(R.id.USD);
-			String usd = storeclaim.totalcurrency();
-			usdtext.setText(usd);
+//			usdtext = (TextView) findViewById(R.id.USD);
+//			String usd = storeclaim.totalcurrency();
+//			usdtext.setText(usd);
 //			
 			claimname = (TextView) findViewById(R.id.claimnameinitemlist);
 			String claimn = storeclaim.getName();
